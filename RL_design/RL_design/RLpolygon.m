@@ -36,13 +36,13 @@ Er=10.2;         %[-] relative permittivity of dielectric substrate
 %input set 2 
 Nb=3;           %number of the beam ports
 Na=3;           %number of the array ports
-Nd=2;           %[1 2 4 8] only  possible number of the dummy ports,
+Nd=4;           %[1 2 4 8] only  possible number of the dummy ports,
 theta = 15;     %[deg] Array steering angles
 alpha = 45;     %[deg] Focal angle 
 beta = 0.90;    %Focal ration f2/f1
 gamma = 1.00;   %Expansion factor sin(phi)/sin(alpha)
-f1=4*lambda0;   %On-axis focal length
-
+lambda_g = 0.020;   % from microstrip calc specific to my substrate
+f1=5*lambda_g;   %On-axis focal length
 %% Antenna elememt spacing
 
 % sd=1/(1+sin(pi*50/180));  %[lambda0] maximal array antenna elements

@@ -14,3 +14,49 @@ S(1,:,:) = [   -3.242946E-001 -    1.600625E-001i,    5.860691E-002 +    5.88451
 for i=1:10
     S_Param(i,:)= S(1,i,:);
 end 
+% Identify row of interests for excitation to determine relative phase
+% differences and thereby calculate alpha. In this instance port 9 is the
+% excitation and ports 1,2,3 are the antenna ports
+
+S_Param_alpha = S_Param(9,:);
+S19 = S_Param_alpha(1,1);
+S29 = S_Param_alpha(1,2);
+S39 = S_Param_alpha(1,3);
+
+S19_phase = angle(S19);
+S29_phase = angle(S29);
+S39_phase = angle(S39);
+% adujust for relative phase with respect to port 3 (closest element with
+% respect to excited port 9)
+
+S29_p_r = S29_phase - S39_phase;
+S19_p_r = S19_phase - S39_phase;
+S39_p_r = 0;
+S_p_r = [S39_p_r S29_p_r S19_p_r];
+
+
+
+% Calculate and plot 3 element array factor
+theta = linspace(0,2*pi,5000);
+N=3;
+v0=299792458;  
+f=5.9e9;         
+lambda0=v0/f;
+Beta = 2*pi/lambda0;
+Beta_d = 2*pi/lambda0*0.5*lambda0;
+
+for n = 0:N-1
+    for i = 1:size(theta,2)
+        psi(n+1,i) = n*(Beta_d*cos(theta(i))+ S_p_r(n+1));
+    end
+end
+
+for n = 0:N-1
+    for i = 1:size(theta,2)
+        AF(n+1,i) = exp(-1i*psi(n+1,i));
+    end
+end
+AF = abs(sum(AF(1:N,:))/N);
+
+figure;
+polar(theta, AF);
