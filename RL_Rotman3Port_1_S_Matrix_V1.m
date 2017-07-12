@@ -23,6 +23,11 @@ S19 = S_Param_alpha(1,1);
 S29 = S_Param_alpha(1,2);
 S39 = S_Param_alpha(1,3);
 
+S19_mag = S19;
+S29_mag = S29;
+S39_mag = S39;
+S_mag = [S19_mag S29_mag S39_mag];
+
 S19_phase = angle(S19);
 S29_phase = angle(S29);
 S39_phase = angle(S39);
@@ -33,7 +38,6 @@ S29_p_r = S29_phase - S39_phase;
 S19_p_r = S19_phase - S39_phase;
 S39_p_r = 0;
 S_p_r = [S39_p_r S29_p_r S19_p_r];
-
 
 
 % Calculate and plot 3 element array factor
@@ -53,10 +57,10 @@ end
 
 for n = 0:N-1
     for i = 1:size(theta,2)
-        AF(n+1,i) = exp(-1i*psi(n+1,i));
+        AF(n+1,i) = S_mag(n+1)*exp(-1i*psi(n+1,i));
     end
 end
-AF = abs(sum(AF(1:N,:))/N);
+AF = abs(sum(AF(1:N,:)));
 
 figure;
 polar(theta, AF);
