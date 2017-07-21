@@ -1,4 +1,9 @@
-classdef MicrostripDesign
+classdef MicrostripDesign < handle
+% This class creates a microstrip object. It calculates important
+% parameters including characteristic impedance, conductor loss, dielectric
+% loss, effective epsilon and guided wavelength. It is largely based on
+% papers by Bahl and referencing books by Pozar and Steer.
+
     properties
         Frequency
         omega
@@ -10,6 +15,12 @@ classdef MicrostripDesign
         Sub_epsr
         Sub_lsstan
         t_H
+        
+        Z_0
+        eps_eff
+        lambda_g
+        
+        
     end
     methods
         function obj = MicrostripDesign(constants,input)
@@ -22,7 +33,7 @@ classdef MicrostripDesign
             obj.Sub_lsstan = input.Sub_lsstan; 
             obj.t_H = input.copper_t/input.Height;
         end
-        function [Z_0,eps_eff,lambda_g, lambda_g_q, alpha_c, alpha_d ]...
+        function [Z_0,eps_eff,lambda_g, lambda_g_q, alpha_c, alpha_d, F_t ]...
                 = calc_values(obj,constants)
             
             
@@ -66,6 +77,15 @@ classdef MicrostripDesign
             end
             alpha_d = 27.3*obj.Sub_epsr/(sqrt(eps_eff))*(eps_eff-1)/(obj.Sub_epsr-1)*obj.Sub_lsstan/(obj.lambda_0*10);
 
+            if(obj.Sub_epsr > 10)
+                F_t = 10.6/(obj.Height/10*sqrt(obj.Sub_epsr))*1e9;
+            else
+                F_t = 299792458/(2*pi*obj.Height/1000)*sqrt(2/(obj.Sub_epsr-1))*atan(obj.Sub_epsr);
+            end
+            
+            obj.Z_0 = Z_0;
+            obj.eps_eff = eps_eff;
+            obj.lambda_g = lambda_g;
             
         end
         

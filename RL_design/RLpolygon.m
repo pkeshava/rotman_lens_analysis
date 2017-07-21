@@ -54,11 +54,11 @@ d=sd*lambda0;               %[m]array antenna elements spacing
 ww=0.001; %[m] transmission line width. Put here the target width of your
             %microstrip line or SIW line connected to the ports
 Ww=ww*sqrt(Er); %rescaling for vacuum Er=1;
-Lw=lambda0;     %[m]length of the transmission lines (TL)
+Lw=0.003;     %[m]length of the transmission lines (TL)
 
-Lbp=3*lambda_g;  %[m]length of taper transition from RL region to TL at BEAM ports
-Lap=3*lambda_g;  %[m]length of taper transition from RL region to TL at ARRAY ports
-Ldp=3*lambda_g;  %[m]length of taper transition from RL region to TL at DUMMY ports
+Lbp=10*lambda_g;  %[m]length of taper transition from RL region to TL at BEAM ports
+Lap=10*lambda_g;  %[m]length of taper transition from RL region to TL at ARRAY ports
+Ldp=10*lambda_g;  %[m]length of taper transition from RL region to TL at DUMMY ports
 
 
 %% Dummy port contour parameters
