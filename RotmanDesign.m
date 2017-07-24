@@ -36,9 +36,11 @@ classdef RotmanDesign
         Beta_d         % wavenumber times distance for array factor calc
         alpha          % focal angle 
         theta_t        % tilt angle
-        beta           % ratio of focal lengths f2/f1 i.e f2 = f1*Beta
-        f1             % on axis focal length as a function of lambda_g
-        f2             % off axis focal length
+        beta           % ratio of focal lengths F/G i.e F = G*Beta (Hansen)
+        g_ideal        % inverse beta (rotman) but calculated using ideal
+                       % optical abberation
+        G              % on axis focal length as a function of lambda_g
+        F              % off axis focal length
     end
     methods
         function obj = RotmanDesign(Rotmanparams,MicrostripDesign)
@@ -49,14 +51,16 @@ classdef RotmanDesign
             obj.d = Rotmanparams.d;
             obj.excited_port = Rotmanparams.excited_port;
             obj.lambda_0 = MicrostripDesign.lambda_0;
-            obj.N = 0.5*obj.d*obj.lambda_0;
+            obj.N = obj.d*obj.lambda_0;
             obj.Beta_d = 2*pi*obj.d;
             obj.lambda_g = MicrostripDesign.lambda_g;
             obj.alpha = pi/180*Rotmanparams.alpha;
             obj.theta_t = pi/180*Rotmanparams.theta_t;
             obj.beta = Rotmanparams.beta;
-            obj.f1 = Rotmanparams.f1*obj.lambda_g;
-            obj.f2 = obj.f1*obj.beta;
+            obj.G = Rotmanparams.G*obj.lambda_g;
+            obj.F = obj.G*obj.beta;
+            obj.g_ideal = 1+obj.alpha^2/2;
+            
         end
         function [AF] = calc_AF(obj,S)
             % Adjust it to only be a 2 dimensional matrix since we only care 
@@ -93,47 +97,41 @@ classdef RotmanDesign
             AF = abs(sum(AF(1:obj.Na,:)));
  
         end
-        
-        function [a, b, c, w] = calc_dimensions(obj,microstrip)
+        function [a, b, c, w, xa, ya, xb, yb] = calc_dimensions(obj,microstrip)
             % First define normalized parameters
-            eta = obj.N/obj.f2;
+            Ny=(1:1:obj.Na)*obj.d*obj.lambda_0-(obj.Na+1)*obj.d*obj.lambda_0/2;
+            eta = Ny./obj.F;
             g = 1/obj.beta;
-            a0 = sqrt(1 - sin(obj.alpha)^2/microstrip.eps_eff);
-            %a0 = cos(obj.alpha);
-            b0 = sin(obj.alpha);
-            root_eps = sqrt(microstrip.eps_eff);
-            
-            a = (1 - eta^2 - (g-1)^2/((g - a0)^2));
-            b = 2*g*root_eps*(g-1)/(g-a0)-(g-1)*eta^2*b0^2 ...
-                /(root_eps*(g-a0)^2)+ 2*eta^2*root_eps - 2*g*root_eps;
-            c = g*eta^2*b0^2/(g-a0)-eta^4*b0^4/(4*root_eps^2*(g-a0)^2)- ...
-                root_eps^2*eta^2;
-            w = (-b + sqrt(b^2 - 4*a*c))/(2*a);
-        end
-        function [a, b, c, w] = calc_dimensions2(obj,microstrip)
-            % First define normalized parameters
-            eta = obj.N/obj.f2;
-            g = 1/obj.beta;
-            %a0 = sqrt(1 - sin(obj.alpha)^2/microstrip.eps_eff);
             a0 = cos(obj.alpha);
             b0 = sin(obj.alpha);
-            root_eps_e = sqrt(microstrip.eps_eff);
-            root_eps = sqrt(microstrip.Sub_epsr);
-            epseff_epr = microstrip.eps_eff/microstrip.Sub_epsr;
+            epseff_epr = microstrip.eps_eff./microstrip.Sub_epsr;
             
-            a = epseff_epr*(1 - eta^2/microstrip.Sub_epsr - ((g-1)/(g - a0))^2);
+            a = epseff_epr.*(1 - eta.^2./microstrip.Sub_epsr - ((g-1)/(g - a0)).^2);
             
             b = sqrt(epseff_epr)*...
-                (2*g*((g-1)/(g-a0)-1) -...
-                (g-1)/((g-a0)^2)*...
-                b0^2*eta^2/microstrip.Sub_epsr...
-                + 2*eta^2/microstrip.Sub_epsr);
+                (2.*g.*((g-1)./(g-a0)-1) -...
+                (g-1)./((g-a0).^2)*...
+                b0.^2.*eta.^2./microstrip.Sub_epsr...
+                + 2.*eta.^2./microstrip.Sub_epsr);
                 
-            c = g*eta^2*b0^2/(microstrip.Sub_epsr*(g-a0))- eta^4*b0^4/...
-                (4*microstrip.Sub_epsr^2*(g-a0)^2) - ...
-                eta^2/microstrip.Sub_epsr;
+            c = g.*eta.^2.*b0.^2./(microstrip.Sub_epsr.*(g-a0))- eta.^4 ...
+            .*b0.^4./(4.*microstrip.Sub_epsr.^2.*(g-a0).^2) - ...
+                eta.^2./microstrip.Sub_epsr;
             
-            w = (-b + sqrt(b^2 - 4*a*c))/(2*a);
+            w = (-b - sqrt(b.^2 - 4.*a.*c))./(2.*a);
+            
+            % array contour calculations
+            xa = sqrt(epseff_epr).*(1-g)./(g-a0).*w...
+                - eta.^2.*b0.^2./(2.*(g-a0).*microstrip.Sub_epsr);
+            
+            ya = eta./sqrt(microstrip.Sub_epsr).*(1 - sqrt(epseff_epr).*w);
+
+            xb = 0;
+            yb = 0;
+            
+            % Calculation of Radius of focal arc
+            
         end
+        
     end
 end

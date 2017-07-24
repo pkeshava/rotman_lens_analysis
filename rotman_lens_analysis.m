@@ -22,7 +22,7 @@ S2(1,:,:) = [   -1.815751E-001 -    1.508203E-001i,    5.822302E-002 +    6.9885
 
 
 rotmanparams = struct('Na',3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.5, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'f1', 5);
+    0.5, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 5);
 rotman1 = RotmanDesign(rotmanparams, micro1);
 
 [AF1] = calc_AF(rotman1, S);
@@ -54,10 +54,22 @@ micro2 = MicrostripDesign(constants,input);
 
 % Define input fields for the rotman design
 rotmanparams = struct('Na',3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.5, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'f1', 5);
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
 
 rotman3 = RotmanDesign(rotmanparams, micro2);
-[a, b, c, w] = calc_dimensions(rotman3, micro2);
-[a2, b2, c2, w2] = calc_dimensions2(rotman3, micro2);
-w_w0 = w*rotman3.f2;
-w_w02 = w2*rotman3.f2;
+[a, b, c, w, xa, ya, xb, yb] = calc_dimensions(rotman3, micro2);
+
+ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
+[R,xcyc] = fit_circle_through_3_points(ABC);
+
+
+w_w0 = w*rotman3.F;
+scatter(xa,ya);
+hold on
+
+th = 0:pi/50:2*pi;
+xunit = R * cos(th) + xcyc(1);
+yunit = R * sin(th) + xcyc(2);
+h = plot(xunit, yunit);
+hold off
+
