@@ -97,7 +97,7 @@ classdef RotmanDesign
             AF = abs(sum(AF(1:obj.Na,:)));
  
         end
-        function [a, b, c, w, xa, ya, xb, yb] = calc_dimensions(obj,microstrip)
+        function [a, b, c, w, xa, ya] = calc_dimensions(obj,microstrip)
             % First define normalized parameters
             Ny=(1:1:obj.Na)*obj.d*obj.lambda_0-(obj.Na+1)*obj.d*obj.lambda_0/2;
             eta = Ny./obj.F;
@@ -125,12 +125,14 @@ classdef RotmanDesign
                 - eta.^2.*b0.^2./(2.*(g-a0).*microstrip.Sub_epsr);
             
             ya = eta./sqrt(microstrip.Sub_epsr).*(1 - sqrt(epseff_epr).*w);
-
-            xb = 0;
-            yb = 0;
-            
-            % Calculation of Radius of focal arc
-            
+        end
+        
+        function [Rb, xcyc, xbyb] = beam_contour(obj)
+            xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
+            yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
+            xbyb = [xb yb];
+            ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
+            [Rb,xcyc] = fit_circle_through_3_points(ABC);            
         end
         
     end

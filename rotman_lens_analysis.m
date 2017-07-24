@@ -56,20 +56,31 @@ micro2 = MicrostripDesign(constants,input);
 rotmanparams = struct('Na',3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
 
+% calculate parameters for rotman lens
 rotman3 = RotmanDesign(rotmanparams, micro2);
-[a, b, c, w, xa, ya, xb, yb] = calc_dimensions(rotman3, micro2);
-
+[a, b, c, w, xa, ya] = calc_dimensions(rotman3, micro2);
+w_w0 = w*rotman3.F;
+% calculate lens radius based on rotman parameters
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [R,xcyc] = fit_circle_through_3_points(ABC);
-
-
-w_w0 = w*rotman3.F;
-scatter(xa,ya);
+%
+[Rb, xcyc_b, xbyb] = beam_contour(rotman3);
 hold on
+
+scatter(xa,ya);
+scatter(xbyb(:,1),xbyb(:,2));
 
 th = 0:pi/50:2*pi;
 xunit = R * cos(th) + xcyc(1);
 yunit = R * sin(th) + xcyc(2);
 h = plot(xunit, yunit);
+
+th = 0:pi/50:2*pi;
+xunit = Rb * cos(th) + xcyc_b(1);
+yunit = Rb * sin(th) + xcyc_b(2);
+h = plot(xunit, yunit);
+
+
+
 hold off
 
