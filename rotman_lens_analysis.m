@@ -60,27 +60,40 @@ rotmanparams = struct('Na',3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ...
 rotman3 = RotmanDesign(rotmanparams, micro2);
 [a, b, c, w, xa, ya] = calc_dimensions(rotman3, micro2);
 w_w0 = w*rotman3.F;
-% calculate lens radius based on rotman parameters
+% calculate array contour based on rotman parameters
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
-[R,xcyc] = fit_circle_through_3_points(ABC);
-%
-[Rb, xcyc_b, xbyb] = beam_contour(rotman3);
-hold on
+[r,xcyc] = fit_circle_through_3_points(ABC);
+% calculate beam contour based on rotman parameters
+[rb, xcyc_b, xbyb] = beam_contour(rotman3);
 
+F = 0.0877;
+x_l = -cos(30*pi/180) - xcyc_b(1);
+theta_r = acos(abs(x_l/rb));
+
+x1new = xcyc_b(1) - rb*cos(theta_r/2);
+y1new = xcyc_b(2) + rb*sin(theta_r/2);
+%x2new = xcyc_b(1) - r*cos(theta_r*pi/180/3);
+%y2new = xcyc_b(2) - r*sin(theta_r*pi/180/3);
+xnew = [x1new];
+ynew = [y1new];
+
+
+hold on
+% plot the phase centers of the ports
 scatter(xa,ya);
 scatter(xbyb(:,1),xbyb(:,2));
-
+scatter(xnew,ynew);
+% plot countours
 th = 0:pi/50:2*pi;
-xunit = R * cos(th) + xcyc(1);
-yunit = R * sin(th) + xcyc(2);
+xunit = r * cos(th) + xcyc(1);
+yunit = r * sin(th) + xcyc(2);
 h = plot(xunit, yunit);
 
 th = 0:pi/50:2*pi;
-xunit = Rb * cos(th) + xcyc_b(1);
-yunit = Rb * sin(th) + xcyc_b(2);
+xunit = rb * cos(th) + xcyc_b(1);
+yunit = rb * sin(th) + xcyc_b(2);
 h = plot(xunit, yunit);
-
-
-
 hold off
+
+
 
