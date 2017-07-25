@@ -36,9 +36,9 @@ Er=10.2;         %[-] relative permittivity of dielectric substrate
 %input set 2 
 Nb=3;           %number of the beam ports
 Na=3;           %number of the array ports
-Nd=4;           %[1 2 4 8] only  possible number of the dummy ports,
-theta = 20;     %[deg] Array steering angles
-alpha = 25;     %[deg] Focal angle 
+Nd=8;           %[1 2 4 8] only  possible number of the dummy ports,
+theta = 25;     %[deg] Array steering angles
+alpha = 40;     %[deg] Focal angle 
 beta = 0.90;    %Focal ration f2/f1
 gamma = 1.00;   %Expansion factor sin(phi)/sin(alpha)
 lambda_g = 0.020;   % from microstrip calc specific to my substrate

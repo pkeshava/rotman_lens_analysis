@@ -181,111 +181,171 @@ $begin 'AnsoftProject'
 				$end 'DatasetDefinitions'
 			$end 'DesignDatasets'
 $begin 'Properties'
-VariableProp('X1','UD', '', '66.0079mm')
+VariableProp('X1','UD', '', '94.873mm')
 VariableProp('Y1','UD', '', '0.5mm')
 VariableProp('Z1','UD', '', '0mm')
-VariableProp('X2','UD', '', '50.0979mm')
+VariableProp('X2','UD', '', '93.9336mm')
 VariableProp('Y2','UD', '', '0.5mm')
 VariableProp('Z2','UD', '', '0mm')
-VariableProp('X3','UD', '', '31.2931mm')
-VariableProp('Y3','UD', '', '4.0408mm')
+VariableProp('X3','UD', '', '31.2853mm')
+VariableProp('Y3','UD', '', '4.044mm')
 VariableProp('Z3','UD', '', '0mm')
-VariableProp('X4','UD', '', '47.9mm')
-VariableProp('Y4','UD', '', '13.5125mm')
+VariableProp('X4','UD', '', '88.2662mm')
+VariableProp('Y4','UD', '', '30.2612mm')
 VariableProp('Z4','UD', '', '0mm')
-VariableProp('X5','UD', '', '62.9417mm')
-VariableProp('Y5','UD', '', '18.6963mm')
+VariableProp('X5','UD', '', '89.1404mm')
+VariableProp('Y5','UD', '', '30.6049mm')
 VariableProp('Z5','UD', '', '0mm')
-VariableProp('X6','UD', '', '62.6159mm')
-VariableProp('Y6','UD', '', '19.6417mm')
+VariableProp('X6','UD', '', '88.7745mm')
+VariableProp('Y6','UD', '', '31.5355mm')
 VariableProp('Z6','UD', '', '0mm')
-VariableProp('X7','UD', '', '47.5742mm')
-VariableProp('Y7','UD', '', '14.4579mm')
+VariableProp('X7','UD', '', '87.9003mm')
+VariableProp('Y7','UD', '', '31.1918mm')
 VariableProp('Z7','UD', '', '0mm')
-VariableProp('X8','UD', '', '28.676mm')
-VariableProp('Y8','UD', '', '11.6347mm')
+VariableProp('X8','UD', '', '28.3481mm')
+VariableProp('Y8','UD', '', '11.5143mm')
 VariableProp('Z8','UD', '', '0mm')
-VariableProp('X9','UD', '', '41.943mm')
-VariableProp('Y9','UD', '', '26.4156mm')
+VariableProp('X9','UD', '', '77.3056mm')
+VariableProp('Y9','UD', '', '51.201mm')
 VariableProp('Z9','UD', '', '0mm')
-VariableProp('X10','UD', '', '54.3101mm')
-VariableProp('Y10','UD', '', '36.4246mm')
+VariableProp('X10','UD', '', '78.0463mm')
+VariableProp('Y10','UD', '', '51.7787mm')
 VariableProp('Z10','UD', '', '0mm')
-VariableProp('X11','UD', '', '53.681mm')
-VariableProp('Y11','UD', '', '37.2019mm')
+VariableProp('X11','UD', '', '77.4313mm')
+VariableProp('Y11','UD', '', '52.5672mm')
 VariableProp('Z11','UD', '', '0mm')
-VariableProp('X12','UD', '', '41.3139mm')
-VariableProp('Y12','UD', '', '27.1929mm')
+VariableProp('X12','UD', '', '76.6906mm')
+VariableProp('Y12','UD', '', '51.9895mm')
 VariableProp('Z12','UD', '', '0mm')
-VariableProp('X13','UD', '', '25.3742mm')
-VariableProp('Y13','UD', '', '18.3361mm')
+VariableProp('X13','UD', '', '26.8901mm')
+VariableProp('Y13','UD', '', '14.6494mm')
 VariableProp('Z13','UD', '', '0mm')
-VariableProp('X14','UD', '', '36.3662mm')
-VariableProp('Y14','UD', '', '34.7335mm')
+VariableProp('X14','UD', '', '73.952mm')
+VariableProp('Y14','UD', '', '56.5376mm')
 VariableProp('Z14','UD', '', '0mm')
-VariableProp('X15','UD', '', '47.232mm')
-VariableProp('Y15','UD', '', '46.355mm')
+VariableProp('X15','UD', '', '74.6653mm')
+VariableProp('Y15','UD', '', '57.1488mm')
 VariableProp('Z15','UD', '', '0mm')
-VariableProp('X16','UD', '', '46.5016mm')
-VariableProp('Y16','UD', '', '47.038mm')
+VariableProp('X16','UD', '', '74.0146mm')
+VariableProp('Y16','UD', '', '57.9082mm')
 VariableProp('Z16','UD', '', '0mm')
-VariableProp('X17','UD', '', '35.6357mm')
-VariableProp('Y17','UD', '', '35.4164mm')
+VariableProp('X17','UD', '', '73.3013mm')
+VariableProp('Y17','UD', '', '57.297mm')
 VariableProp('Z17','UD', '', '0mm')
-VariableProp('X18','UD', '', '20.9666mm')
-VariableProp('Y18','UD', '', '24.3681mm')
+VariableProp('X18','UD', '', '25.2542mm')
+VariableProp('Y18','UD', '', '17.6956mm')
 VariableProp('Z18','UD', '', '0mm')
-VariableProp('X19','UD', '', '19.3915mm')
-VariableProp('Y19','UD', '', '43.5885mm')
+VariableProp('X19','UD', '', '69.3153mm')
+VariableProp('Y19','UD', '', '62.6903mm')
 VariableProp('Z19','UD', '', '0mm')
-VariableProp('X20','UD', '', '21.2264mm')
-VariableProp('Y20','UD', '', '59.3922mm')
+VariableProp('X20','UD', '', '69.9852mm')
+VariableProp('Y20','UD', '', '63.3488mm')
 VariableProp('Z20','UD', '', '0mm')
-VariableProp('X21','UD', '', '20.2331mm')
-VariableProp('Y21','UD', '', '59.5076mm')
+VariableProp('X21','UD', '', '69.2842mm')
+VariableProp('Y21','UD', '', '64.0619mm')
 VariableProp('Z21','UD', '', '0mm')
-VariableProp('X22','UD', '', '18.3981mm')
-VariableProp('Y22','UD', '', '43.7038mm')
+VariableProp('X22','UD', '', '68.6143mm')
+VariableProp('Y22','UD', '', '63.4034mm')
 VariableProp('Z22','UD', '', '0mm')
-VariableProp('X23','UD', '', '12.4896mm')
-VariableProp('Y23','UD', '', '25.6015mm')
+VariableProp('X23','UD', '', '23.3602mm')
+VariableProp('Y23','UD', '', '20.5969mm')
 VariableProp('Z23','UD', '', '0mm')
-VariableProp('X24','UD', '', '-2.1136mm')
-VariableProp('Y24','UD', '', '36.8055mm')
+VariableProp('X24','UD', '', '62.0267mm')
+VariableProp('Y24','UD', '', '70.2432mm')
 VariableProp('Z24','UD', '', '0mm')
-VariableProp('X25','UD', '', '-12.5217mm')
-VariableProp('Y25','UD', '', '48.8386mm')
+VariableProp('X25','UD', '', '62.618mm')
+VariableProp('Y25','UD', '', '70.9731mm')
 VariableProp('Z25','UD', '', '0mm')
-VariableProp('X26','UD', '', '-13.278mm')
-VariableProp('Y26','UD', '', '48.1844mm')
+VariableProp('X26','UD', '', '61.841mm')
+VariableProp('Y26','UD', '', '71.6026mm')
 VariableProp('Z26','UD', '', '0mm')
-VariableProp('X27','UD', '', '-2.8699mm')
-VariableProp('Y27','UD', '', '36.1513mm')
+VariableProp('X27','UD', '', '61.2497mm')
+VariableProp('Y27','UD', '', '70.8727mm')
 VariableProp('Z27','UD', '', '0mm')
-VariableProp('X28','UD', '', '7.1072mm')
-VariableProp('Y28','UD', '', '18.9374mm')
+VariableProp('X28','UD', '', '21.0763mm')
+VariableProp('Y28','UD', '', '23.2025mm')
 VariableProp('Z28','UD', '', '0mm')
-VariableProp('X29','UD', '', '-13.062mm')
-VariableProp('Y29','UD', '', '21.2432mm')
+VariableProp('X29','UD', '', '45.324mm')
+VariableProp('Y29','UD', '', '81.2061mm')
 VariableProp('Z29','UD', '', '0mm')
-VariableProp('X30','UD', '', '-27.4813mm')
-VariableProp('Y30','UD', '', '27.9671mm')
+VariableProp('X30','UD', '', '45.7085mm')
+VariableProp('Y30','UD', '', '82.0632mm')
 VariableProp('Z30','UD', '', '0mm')
-VariableProp('X31','UD', '', '-27.9039mm')
-VariableProp('Y31','UD', '', '27.0608mm')
+VariableProp('X31','UD', '', '44.7961mm')
+VariableProp('Y31','UD', '', '82.4725mm')
 VariableProp('Z31','UD', '', '0mm')
-VariableProp('X32','UD', '', '-13.4846mm')
-VariableProp('Y32','UD', '', '20.3369mm')
+VariableProp('X32','UD', '', '44.4116mm')
+VariableProp('Y32','UD', '', '81.6155mm')
 VariableProp('Z32','UD', '', '0mm')
-VariableProp('X33','UD', '', '0.42002mm')
-VariableProp('Y33','UD', '', '6.8567mm')
+VariableProp('X33','UD', '', '17.3883mm')
+VariableProp('Y33','UD', '', '25.3495mm')
 VariableProp('Z33','UD', '', '0mm')
-VariableProp('X34','UD', '', '-18.3461mm')
-VariableProp('Y34','UD', '', '0.5mm')
+VariableProp('X34','UD', '', '7.9796mm')
+VariableProp('Y34','UD', '', '87.2153mm')
 VariableProp('Z34','UD', '', '0mm')
-VariableProp('X35','UD', '', '-34.256mm')
-VariableProp('Y35','UD', '', '0.5mm')
+VariableProp('X35','UD', '', '7.8626mm')
+VariableProp('Y35','UD', '', '88.1473mm')
 VariableProp('Z35','UD', '', '0mm')
+VariableProp('X36','UD', '', '6.8704mm')
+VariableProp('Y36','UD', '', '88.0228mm')
+VariableProp('Z36','UD', '', '0mm')
+VariableProp('X37','UD', '', '6.9874mm')
+VariableProp('Y37','UD', '', '87.0908mm')
+VariableProp('Z37','UD', '', '0mm')
+VariableProp('X38','UD', '', '13.1727mm')
+VariableProp('Y38','UD', '', '24.6863mm')
+VariableProp('Z38','UD', '', '0mm')
+VariableProp('X39','UD', '', '-21.3008mm')
+VariableProp('Y39','UD', '', '76.6444mm')
+VariableProp('Z39','UD', '', '0mm')
+VariableProp('X40','UD', '', '-21.8007mm')
+VariableProp('Y40','UD', '', '77.4397mm')
+VariableProp('Z40','UD', '', '0mm')
+VariableProp('X41','UD', '', '-22.6473mm')
+VariableProp('Y41','UD', '', '76.9074mm')
+VariableProp('Z41','UD', '', '0mm')
+VariableProp('X42','UD', '', '-22.1473mm')
+VariableProp('Y42','UD', '', '76.1122mm')
+VariableProp('Z42','UD', '', '0mm')
+VariableProp('X43','UD', '', '10.0389mm')
+VariableProp('Y43','UD', '', '22.0385mm')
+VariableProp('Z43','UD', '', '0mm')
+VariableProp('X44','UD', '', '-38.8813mm')
+VariableProp('Y44','UD', '', '60.4403mm')
+VariableProp('Z44','UD', '', '0mm')
+VariableProp('X45','UD', '', '-39.6059mm')
+VariableProp('Y45','UD', '', '61.038mm')
+VariableProp('Z45','UD', '', '0mm')
+VariableProp('X46','UD', '', '-40.2422mm')
+VariableProp('Y46','UD', '', '60.2665mm')
+VariableProp('Z46','UD', '', '0mm')
+VariableProp('X47','UD', '', '-39.5176mm')
+VariableProp('Y47','UD', '', '59.6688mm')
+VariableProp('Z47','UD', '', '0mm')
+VariableProp('X48','UD', '', '8.1832mm')
+VariableProp('Y48','UD', '', '18.3796mm')
+VariableProp('Z48','UD', '', '0mm')
+VariableProp('X49','UD', '', '-52.4523mm')
+VariableProp('Y49','UD', '', '39.6113mm')
+VariableProp('Z49','UD', '', '0mm')
+VariableProp('X50','UD', '', '-53.3036mm')
+VariableProp('Y50','UD', '', '40.0082mm')
+VariableProp('Z50','UD', '', '0mm')
+VariableProp('X51','UD', '', '-53.7262mm')
+VariableProp('Y51','UD', '', '39.1019mm')
+VariableProp('Z51','UD', '', '0mm')
+VariableProp('X52','UD', '', '-52.8749mm')
+VariableProp('Y52','UD', '', '38.7049mm')
+VariableProp('Z52','UD', '', '0mm')
+VariableProp('X53','UD', '', '0mm')
+VariableProp('Y53','UD', '', '7.0058mm')
+VariableProp('Z53','UD', '', '0mm')
+VariableProp('X54','UD', '', '-62.6224mm')
+VariableProp('Y54','UD', '', '0.5mm')
+VariableProp('Z54','UD', '', '0mm')
+VariableProp('X55','UD', '', '-63.5618mm')
+VariableProp('Y55','UD', '', '0.5mm')
+VariableProp('Z55','UD', '', '0mm')
 $end 'Properties'
 			SnapMode=31
 			WorkingCS=1
@@ -526,6 +586,206 @@ $begin 'PLPoint'
 X='X35'
 Y='Y35'
 Z='Z35'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X36'
+Y='Y36'
+Z='Z36'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X37'
+Y='Y37'
+Z='Z37'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X38'
+Y='Y38'
+Z='Z38'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X39'
+Y='Y39'
+Z='Z39'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X40'
+Y='Y40'
+Z='Z40'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X41'
+Y='Y41'
+Z='Z41'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X42'
+Y='Y42'
+Z='Z42'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X43'
+Y='Y43'
+Z='Z43'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X44'
+Y='Y44'
+Z='Z44'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X45'
+Y='Y45'
+Z='Z45'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X46'
+Y='Y46'
+Z='Z46'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X47'
+Y='Y47'
+Z='Z47'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X48'
+Y='Y48'
+Z='Z48'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X49'
+Y='Y49'
+Z='Z49'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X50'
+Y='Y50'
+Z='Z50'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X51'
+Y='Y51'
+Z='Z51'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X52'
+Y='Y52'
+Z='Z52'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X53'
+Y='Y53'
+Z='Z53'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X54'
+Y='Y54'
+Z='Z54'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X55'
+Y='Y55'
+Z='Z55'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X55'
+Y='-Y55'
+Z='Z55'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X54'
+Y='-Y54'
+Z='Z54'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X53'
+Y='-Y53'
+Z='Z53'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X52'
+Y='-Y52'
+Z='Z52'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X51'
+Y='-Y51'
+Z='Z51'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X50'
+Y='-Y50'
+Z='Z50'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X49'
+Y='-Y49'
+Z='Z49'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X48'
+Y='-Y48'
+Z='Z48'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X47'
+Y='-Y47'
+Z='Z47'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X46'
+Y='-Y46'
+Z='Z46'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X45'
+Y='-Y45'
+Z='Z45'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X44'
+Y='-Y44'
+Z='Z44'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X43'
+Y='-Y43'
+Z='Z43'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X42'
+Y='-Y42'
+Z='Z42'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X41'
+Y='-Y41'
+Z='Z41'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X40'
+Y='-Y40'
+Z='Z40'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X39'
+Y='-Y39'
+Z='Z39'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X38'
+Y='-Y38'
+Z='Z38'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X37'
+Y='-Y37'
+Z='Z37'
+$end 'PLPoint'
+$begin 'PLPoint'
+X='X36'
+Y='-Y36'
+Z='Z36'
 $end 'PLPoint'
 $begin 'PLPoint'
 X='X35'

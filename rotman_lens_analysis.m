@@ -59,7 +59,7 @@ rotmanparams = struct('Na',3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ...
 % calculate parameters for rotman lens
 rotman3 = RotmanDesign(rotmanparams, micro2);
 [a, b, c, w, xa, ya] = calc_dimensions(rotman3, micro2);
-w_w0 = w*rotman3.F;
+W_W0 = w*rotman3.F;
 % calculate array contour based on rotman parameters
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
@@ -112,30 +112,83 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na',3,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
+rotmanparams = struct('Na',11,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
 
 % calculate parameters for rotman lens
 rotman4 = RotmanDesign(rotmanparams, micro3);
 [a, b, c, w, xa, ya] = calc_dimensions(rotman4, micro3);
-w_w0 = w*rotman4.F;
+W_W0 = w*rotman4.F;
 % calculate array contour based on rotman parameters
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
 % calculate beam contour based on rotman parameters
 [rb, xcyc_b, xbyb] = beam_contour(rotman4);
+figure;
+plotbeamcountour(rb,xcyc_b,xbyb);
+hold on
+scatter(xa,ya);
+legend('Beam Port Phase Centres', 'Beam Port Contour', 'Array Port Phase Centres');
+xlabel('Normalized x coordinates with respect to F')
+ylabel('Normalized y coordinates with respect to F')
+title('Array Port and Beam Port Normalized Phase Centres')
+hold off
+
+% Plot unnormalized 
+Rb = rotman4.F*rb;
+XCYC_b = rotman4.F*xcyc_b;
+XBYB = rotman4.F*xbyb;
+Xa = rotman4.F*xa;
+Ya = rotman4.F*ya;
 
 figure;
+plotbeamcountour(Rb,XCYC_b,XBYB);
 hold on
-scatter(xbyb(1,:),xbyb(2,:));
-scatter(xa,ya);
-th = 0:pi/50:2*pi;
-xunit = r * cos(th) + xcyc(1);
-yunit = r * sin(th) + xcyc(2);
-h = plot(xunit, yunit);
-
-
-xunit = rb * cos(th) + xcyc_b(1);
-yunit = rb * sin(th) + xcyc_b(2);
-h = plot(xunit, yunit);
+scatter(Xa,Ya);
+legend('Beam Port Phase Centres', 'Beam Port Contour', 'Array Port Phase Centres');
+xlabel('X Coordinate of Rotman Lens')
+ylabel('Y Coordinates of Rotman Lens')
+title('Array Port and Beam Port Phase Centres')
 hold off
+
+% Create array for coordinates. No dummy ports yet just parallel plate
+% region
+
+X = [Xa XBYB(1,:)]';
+Y = [Ya XBYB(2,:)]';
+
+out = [X,Y];
+save RL_XY_coordinates_in_mm.tab out  -ascii
+
+DATA = dlmread('RL_XY_coordinates_in_mm.tab');
+N = size(DATA,1)/2;
+X=DATA(:,1);
+Y=DATA(:,2);
+Z=zeros(N,1);
+
+%% Open input and ouput files
+% tempF = fopen('RL_template.aedt','r'); %specify existing TEMPLATE file name, polygon of N vertices must be already included.
+% modelF = fopen('RL.aedt','w');     %specify ouput file name
+% 
+% %Copy lines of template file until the line, where the HFSS variables could
+% %be written, is found
+% while 1                                      
+%        line=fgetl(tempF);   
+%        if strcmp(line,'			$end ''DesignDatasets'''),   break,   end
+%        fprintf(modelF,[line,'\n']);
+% end;
+% fprintf(modelF,[line,'\n']);
+% 
+% 
+% %Write polygon coordinates as HFSS variables
+% line='$begin ''Properties''\n';
+% fprintf(modelF,line);
+% 
+% for i=1:N
+% lineX = ['VariableProp(''X',num2str(i),''',''UD'', '''', ''',num2str(X(i)),'mm'')\n'];
+% lineY = ['VariableProp(''Y',num2str(i),''',''UD'', '''', ''',num2str(Y(i)),'mm'')\n'];
+% lineZ = ['VariableProp(''Z',num2str(i),''',''UD'', '''', ''',num2str(Z(i)),'mm'')\n'];
+% fprintf(modelF,lineX);
+% fprintf(modelF,lineY);
+% fprintf(modelF,lineZ);
+% end

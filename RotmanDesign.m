@@ -130,6 +130,7 @@ classdef RotmanDesign
                 - eta.^2.*b0.^2./(2.*(g-a0).*microstrip.Sub_epsr);
             
             ya = eta./sqrt(microstrip.Sub_epsr).*(1 - sqrt(epseff_epr).*w);
+
         end
         
         function [rb, xcyc_b, xbyb] = beam_contour(obj)
@@ -138,15 +139,10 @@ classdef RotmanDesign
             xbyb = [xb yb];
             ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
             [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
-            % now calculate positions of all additional ports
-            
-            % take Nb and decide how many additional are on the top and bot
             N_add = (obj.Nb - 3)/2;
-            % for top row calculate postion of new ports
-            % first get the parameters of the beam contour
-            %[rb, xcyc_b, xbyb] = beam_contour(obj);
-            x_l = -cos(obj.alpha*pi/180) - xcyc_b(1);
-            theta_r = acos(abs(x_l/rb));
+            x_l = -cos(obj.alpha*pi/180) - xcyc_b(1); % calculate length of line from center of beam contour to x position of Focal point
+            theta_r = acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
+            % Use this to calculate the position of each additional port
             if (N_add > 0)
                 for i = 1:N_add
                     x_top(i) = xcyc_b(1) - rb*cos(theta_r*i/N_add);
@@ -155,7 +151,9 @@ classdef RotmanDesign
                 for i = 1:N_add
                     x_bot(i) = xcyc_b(1) - rb*cos(theta_r*i/N_add);
                     y_bot(i) = xcyc_b(2) - rb*sin(theta_r*i/N_add);
-                end            
+                end 
+                x_bot = fliplr(x_bot);
+                y_bot = fliplr(y_bot);
                 xbyb = [xb(1) x_top xb(2) x_bot xb(3);...
                     yb(1) y_top yb(2) y_bot yb(3) ];
             end

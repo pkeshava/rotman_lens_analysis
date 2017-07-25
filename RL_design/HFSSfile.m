@@ -32,7 +32,6 @@ Nb=DATA(4); %get number of beam ports. It is needed due to symmetry issues.
 DATA = dlmread('RL_XY_coordinates_in_mm.tab');
 X=DATA(:,1);
 Y=DATA(:,2);
-
 Z=zeros(N,1);
 
 
