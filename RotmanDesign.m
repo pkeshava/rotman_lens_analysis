@@ -44,23 +44,28 @@ classdef RotmanDesign
     end
     methods
         function obj = RotmanDesign(Rotmanparams,MicrostripDesign)
-            obj.Na = Rotmanparams.Na;
-            obj.Nb = Rotmanparams.Nb;
-            obj.Nd = Rotmanparams.Nd;
-            obj.Nt = obj.Na+obj.Nb+obj.Nd;
-            obj.d = Rotmanparams.d;
-            obj.excited_port = Rotmanparams.excited_port;
-            obj.lambda_0 = MicrostripDesign.lambda_0;
-            obj.N = obj.d*obj.lambda_0;
-            obj.Beta_d = 2*pi*obj.d;
-            obj.lambda_g = MicrostripDesign.lambda_g;
-            obj.alpha = pi/180*Rotmanparams.alpha;
-            obj.theta_t = pi/180*Rotmanparams.theta_t;
-            obj.beta = Rotmanparams.beta;
-            obj.G = Rotmanparams.G*obj.lambda_g;
-            obj.F = obj.G*obj.beta;
-            obj.g_ideal = 1+obj.alpha^2/2;
-            
+            % check to make sure that port numbers are odd
+            if (mod(Rotmanparams.Na,2) == 0 || mod(Rotmanparams.Nb,2) == 0)
+                msg = 'Error: Number of Beam and Array Ports must be odd';
+                error(msg);
+            else
+                obj.Na = Rotmanparams.Na;
+                obj.Nb = Rotmanparams.Nb;
+                obj.Nd = Rotmanparams.Nd;
+                obj.Nt = obj.Na+obj.Nb+obj.Nd;
+                obj.d = Rotmanparams.d;
+                obj.excited_port = Rotmanparams.excited_port;
+                obj.lambda_0 = MicrostripDesign.lambda_0;
+                obj.N = obj.d*obj.lambda_0;
+                obj.Beta_d = 2*pi*obj.d;
+                obj.lambda_g = MicrostripDesign.lambda_g;
+                obj.alpha = pi/180*Rotmanparams.alpha;
+                obj.theta_t = pi/180*Rotmanparams.theta_t;
+                obj.beta = Rotmanparams.beta;
+                obj.G = Rotmanparams.G*obj.lambda_g;
+                obj.F = obj.G*obj.beta;
+                obj.g_ideal = 1+obj.alpha^2/2;
+            end
         end
         function [AF] = calc_AF(obj,S)
             % Adjust it to only be a 2 dimensional matrix since we only care 
@@ -127,12 +132,33 @@ classdef RotmanDesign
             ya = eta./sqrt(microstrip.Sub_epsr).*(1 - sqrt(epseff_epr).*w);
         end
         
-        function [Rb, xcyc, xbyb] = beam_contour(obj)
+        function [rb, xcyc_b, xbyb] = beam_contour(obj)
             xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
             yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
             xbyb = [xb yb];
             ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
-            [Rb,xcyc] = fit_circle_through_3_points(ABC);            
+            [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
+            % now calculate positions of all additional ports
+            
+            % take Nb and decide how many additional are on the top and bot
+            N_add = (obj.Nb - 3)/2;
+            % for top row calculate postion of new ports
+            % first get the parameters of the beam contour
+            %[rb, xcyc_b, xbyb] = beam_contour(obj);
+            x_l = -cos(obj.alpha*pi/180) - xcyc_b(1);
+            theta_r = acos(abs(x_l/rb));
+            if (N_add > 0)
+                for i = 1:N_add
+                    x_top(i) = xcyc_b(1) - rb*cos(theta_r*i/N_add);
+                    y_top(i) = xcyc_b(2) + rb*sin(theta_r*i/N_add);
+                end
+                for i = 1:N_add
+                    x_bot(i) = xcyc_b(1) - rb*cos(theta_r*i/N_add);
+                    y_bot(i) = xcyc_b(2) - rb*sin(theta_r*i/N_add);
+                end            
+                xbyb = [xb(1) x_top xb(2) x_bot xb(3);...
+                    yb(1) y_top yb(2) y_bot yb(3) ];
+            end
         end
         
     end

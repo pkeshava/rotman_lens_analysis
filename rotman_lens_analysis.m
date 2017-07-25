@@ -70,12 +70,12 @@ F = 0.0877;
 x_l = -cos(30*pi/180) - xcyc_b(1);
 theta_r = acos(abs(x_l/rb));
 
-x1new = xcyc_b(1) - rb*cos(theta_r/2);
-y1new = xcyc_b(2) + rb*sin(theta_r/2);
-%x2new = xcyc_b(1) - r*cos(theta_r*pi/180/3);
-%y2new = xcyc_b(2) - r*sin(theta_r*pi/180/3);
-xnew = [x1new];
-ynew = [y1new];
+x1new = xcyc_b(1) - rb*cos(theta_r/3);
+y1new = xcyc_b(2) + rb*sin(theta_r/3);
+x2new = xcyc_b(1) - rb*cos(theta_r*2/3);
+y2new = xcyc_b(2) + rb*sin(theta_r*2/3);
+xnew = [x1new; x2new];
+ynew = [y1new y2new];
 
 
 hold on
@@ -95,5 +95,47 @@ yunit = rb * sin(th) + xcyc_b(2);
 h = plot(xunit, yunit);
 hold off
 
+%% More dev
+
+clear all
+close all
+clc
+theta = linspace(0,2*pi,5000);
+% Load Constants
+constants = load('constants.mat');
+% Define input fields for the microstrip design
+input = struct('Frequency',5.9e9,'Height', 50, 'Width', 40, ...
+    'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
+% create microstrip object instance
+micro3 = MicrostripDesign(constants,input);
+[Z_0,eps_eff,lambda_g, lambda_g_q, alpha_c, alpha_d] = ...
+    calc_values(micro3,constants);
+
+% Define input fields for the rotman design
+rotmanparams = struct('Na',3,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
+
+% calculate parameters for rotman lens
+rotman4 = RotmanDesign(rotmanparams, micro3);
+[a, b, c, w, xa, ya] = calc_dimensions(rotman4, micro3);
+w_w0 = w*rotman4.F;
+% calculate array contour based on rotman parameters
+ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
+[r,xcyc] = fit_circle_through_3_points(ABC);
+% calculate beam contour based on rotman parameters
+[rb, xcyc_b, xbyb] = beam_contour(rotman4);
+
+figure;
+hold on
+scatter(xbyb(1,:),xbyb(2,:));
+scatter(xa,ya);
+th = 0:pi/50:2*pi;
+xunit = r * cos(th) + xcyc(1);
+yunit = r * sin(th) + xcyc(2);
+h = plot(xunit, yunit);
 
 
+xunit = rb * cos(th) + xcyc_b(1);
+yunit = rb * sin(th) + xcyc_b(2);
+h = plot(xunit, yunit);
+hold off
