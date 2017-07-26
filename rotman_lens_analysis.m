@@ -154,10 +154,11 @@ hold off
 % Create array for coordinates. No dummy ports yet just parallel plate
 % region
 
-X = [Xa XBYB(1,:)]';
-Y = [Ya XBYB(2,:)]';
+X = [Xa XBYB(1,:)]'*1000;
+Y = [Ya XBYB(2,:)]'*1000;
 
 out = [X,Y];
+save('RL_coordinates.mat','X','Y')
 save RL_XY_coordinates_in_mm.tab out  -ascii
 
 DATA = dlmread('RL_XY_coordinates_in_mm.tab');

@@ -11,8 +11,9 @@ import numpy as np              # Numpy provides a high-performance multidimensi
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt # matlab like plotting
+import scipy
+from scipy import linalg, optimize, io
 
-from scipy import linalg, optimize
 # https://docs.scipy.org/doc/scipy/reference/
 # cluster
 # constants
@@ -35,10 +36,23 @@ from scipy import linalg, optimize
 ######### -------- USEFUL NOTES -------- #########
 # Amazing notes: http://cs231n.github.io/python-numpy-tutorial/
 # scipy.io.loadmat and scipy.io.savemat read and write matlab files
+# data = np.genfromtxt(f)
 #
 #
 #
 #
 #
 #
-#
+
+mat_contents = scipy.io.loadmat('RL_coordinates.mat', squeeze_me = True)        #squeeze gets rid of brackets around variables when importing
+X = mat_contents['X']
+Y = mat_contents['Y']
+f = open('rotmanHFSS.py', 'w')
+f.write('import ScriptEnv\nScriptEnv.Initialize("Ansoft.ElectronicsDesktop")\noDesktop.RestoreWindow()\noProject = oDesktop.SetActiveProject("RL_template")\noDesign = oProject.SetActiveDesign("RL_template")\noEditor = oDesign.SetActiveEditor("3D Modeler")\noEditor.CreatePolyline(\n')
+f.write('    [\n        "NAME:PolylineParameters",\n        "IsPolylineCovered:="    , True,\n        "IsPolylineClosed:="     , True,\n')
+f.write('        [\n            "NAME:PolylinePoints",\n')
+
+
+f.write('"{}"'.format(X[1]))
+f.close
+print(X)
