@@ -140,8 +140,8 @@ classdef RotmanDesign
             ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
             [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
             N_add = (obj.Nb - 3)/2;
-            x_l = -cos(obj.alpha*pi/180) - xcyc_b(1); % calculate length of line from center of beam contour to x position of Focal point
-            theta_r = 1.5*acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
+            x_l = -cos(obj.alpha) - xcyc_b(1); % calculate length of line from center of beam contour to x position of Focal point
+            theta_r = acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
             % Use this to calculate the position of each additional port
             if (N_add > 0)
                 arc_l = rb*theta_r;

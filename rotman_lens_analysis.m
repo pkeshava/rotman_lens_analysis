@@ -113,7 +113,7 @@ micro3 = MicrostripDesign(constants,input);
 
 % Define input fields for the rotman design
 rotmanparams = struct('Na',7,'Nb', 11, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 5);
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
 
 % calculate parameters for rotman lens
 rotman4 = RotmanDesign(rotmanparams, micro3);
@@ -166,30 +166,3 @@ N = size(DATA,1)/2;
 X=DATA(:,1);
 Y=DATA(:,2);
 Z=zeros(N,1);
-
-%% Open input and ouput files
-% tempF = fopen('RL_template.aedt','r'); %specify existing TEMPLATE file name, polygon of N vertices must be already included.
-% modelF = fopen('RL.aedt','w');     %specify ouput file name
-% 
-% %Copy lines of template file until the line, where the HFSS variables could
-% %be written, is found
-% while 1                                      
-%        line=fgetl(tempF);   
-%        if strcmp(line,'			$end ''DesignDatasets'''),   break,   end
-%        fprintf(modelF,[line,'\n']);
-% end;
-% fprintf(modelF,[line,'\n']);
-% 
-% 
-% %Write polygon coordinates as HFSS variables
-% line='$begin ''Properties''\n';
-% fprintf(modelF,line);
-% 
-% for i=1:N
-% lineX = ['VariableProp(''X',num2str(i),''',''UD'', '''', ''',num2str(X(i)),'mm'')\n'];
-% lineY = ['VariableProp(''Y',num2str(i),''',''UD'', '''', ''',num2str(Y(i)),'mm'')\n'];
-% lineZ = ['VariableProp(''Z',num2str(i),''',''UD'', '''', ''',num2str(Z(i)),'mm'')\n'];
-% fprintf(modelF,lineX);
-% fprintf(modelF,lineY);
-% fprintf(modelF,lineZ);
-% end
