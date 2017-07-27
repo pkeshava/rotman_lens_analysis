@@ -230,4 +230,28 @@ oEditor.CreatePolyline(
                 "StartIndex:="      , 17            
                 "NoOfPoints:="      , 2
             ],
+        ],
+        [
+            "NAME:PolylineXSection",
+            "XSectionType:="	, "None",
+            "XSectionOrient:="	, "Auto",
+            "XSectionWidth:="	, "0mm",
+            "XSectionTopWidth:="	, "0mm",
+            "XSectionHeight:="	, "0mm",
+            "XSectionNumSegments:="	, "0",
+            "XSectionBendType:="	, "Corner"
         ]
+    ],
+    [
+        "NAME:Attributes",
+        "Name:="		, "Polyline1",
+        "Flags:="		, "",
+        "Color:="		, "(143 175 143)",
+        "Transparency:="	, 0,
+        "PartCoordinateSystem:=", "Global",
+        "UDMId:="		, "",
+        "IsAlwaysHiden:="	, False,
+        "MaterialValue:="	, ""vacuum"",
+        "SolveInside:="		, True
+    ])
+oProject.Save()
