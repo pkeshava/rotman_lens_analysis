@@ -13,32 +13,26 @@ oEditor.CreatePolyline(
             "NAME:PolylinePoints",
             [
                 "NAME:PLPoint",            
-                "X:="            , "-16.000510160645277mm",            
-                "Y:="            , "-45.37082194273666mm",            
-                "Z:="            , "1.27mm"
-            ],
-            [
-                "NAME:PLPoint",            
-                "X:="            , "-10.596231487245486mm",            
+                "X:="            , "-10.596231487245488mm",            
                 "Y:="            , "-36.10494766807361mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-6.045728008799336mm",            
+                "X:="            , "-6.045728008799338mm",            
                 "Y:="            , "-27.268957319607058mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-2.7055128580534586mm",            
-                "Y:="            , "-18.32202064788648mm",            
+                "X:="            , "-2.7055128580534613mm",            
+                "Y:="            , "-18.32202064788649mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-0.6785816176476174mm",            
-                "Y:="            , "-9.210438434166633mm",            
+                "X:="            , "-0.6785816176476185mm",            
+                "Y:="            , "-9.210438434166644mm",            
                 "Z:="            , "1.27mm"
             ],
             [
@@ -49,32 +43,26 @@ oEditor.CreatePolyline(
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-0.6785816176476185mm",            
-                "Y:="            , "9.210438434166644mm",            
+                "X:="            , "-0.6785816176476174mm",            
+                "Y:="            , "9.210438434166633mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-2.7055128580534613mm",            
-                "Y:="            , "18.32202064788649mm",            
+                "X:="            , "-2.7055128580534586mm",            
+                "Y:="            , "18.32202064788648mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-6.04572800879934mm",            
-                "Y:="            , "27.268957319607065mm",            
+                "X:="            , "-6.045728008799336mm",            
+                "Y:="            , "27.268957319607058mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-10.5962314872455mm",            
-                "Y:="            , "36.10494766807362mm",            
-                "Z:="            , "1.27mm"
-            ],
-            [
-                "NAME:PLPoint",            
-                "X:="            , "-16.000510160645288mm",            
-                "Y:="            , "45.37082194273669mm",            
+                "X:="            , "-10.596231487245488mm",            
+                "Y:="            , "36.10494766807361mm",            
                 "Z:="            , "1.27mm"
             ],
             [
@@ -85,14 +73,26 @@ oEditor.CreatePolyline(
             ],
             [
                 "NAME:PLPoint",            
+                "X:="            , "-70.17643356758613mm",            
+                "Y:="            , "25.134467409903348mm",            
+                "Z:="            , "1.27mm"
+            ],
+            [
+                "NAME:PLPoint",            
+                "X:="            , "-73.53060075927151mm",            
+                "Y:="            , "19.36531676102271mm",            
+                "Z:="            , "1.27mm"
+            ],
+            [
+                "NAME:PLPoint",            
                 "X:="            , "-75.98208544154882mm",            
                 "Y:="            , "13.158565629245459mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-70.17643356758613mm",            
-                "Y:="            , "25.134467409903348mm",            
+                "X:="            , "-77.47549110869511mm",            
+                "Y:="            , "6.6544687455425615mm",            
                 "Z:="            , "1.27mm"
             ],
             [
@@ -103,14 +103,26 @@ oEditor.CreatePolyline(
             ],
             [
                 "NAME:PLPoint",            
-                "X:="            , "-70.17643356758613mm",            
-                "Y:="            , "-25.13446740990334mm",            
+                "X:="            , "-77.47549110869511mm",            
+                "Y:="            , "-6.654468745542559mm",            
                 "Z:="            , "1.27mm"
             ],
             [
                 "NAME:PLPoint",            
                 "X:="            , "-75.98208544154882mm",            
                 "Y:="            , "-13.158565629245453mm",            
+                "Z:="            , "1.27mm"
+            ],
+            [
+                "NAME:PLPoint",            
+                "X:="            , "-73.53060075927151mm",            
+                "Y:="            , "-19.365316761022704mm",            
+                "Z:="            , "1.27mm"
+            ],
+            [
+                "NAME:PLPoint",            
+                "X:="            , "-70.17643356758613mm",            
+                "Y:="            , "-25.13446740990334mm",            
                 "Z:="            , "1.27mm"
             ],
             [
@@ -125,109 +137,121 @@ oEditor.CreatePolyline(
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 0            
+                "StartIndex:="      , 0,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 1            
+                "StartIndex:="      , 1,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 2            
+                "StartIndex:="      , 2,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 3            
+                "StartIndex:="      , 3,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 4            
+                "StartIndex:="      , 4,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 5            
+                "StartIndex:="      , 5,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 6            
+                "StartIndex:="      , 6,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 7            
+                "StartIndex:="      , 7,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 8            
+                "StartIndex:="      , 8,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 9            
+                "StartIndex:="      , 9,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 10            
+                "StartIndex:="      , 10,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 11            
+                "StartIndex:="      , 11,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 12            
+                "StartIndex:="      , 12,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 13            
+                "StartIndex:="      , 13,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 14            
+                "StartIndex:="      , 14,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 15            
+                "StartIndex:="      , 15,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 16            
+                "StartIndex:="      , 16,            
                 "NoOfPoints:="      , 2
             ],
             [
                 "NAME:PLSegment",            
                 "SegmentType:="     , "Line",            
-                "StartIndex:="      , 17            
+                "StartIndex:="      , 17,            
+                "NoOfPoints:="      , 2
+            ],
+            [
+                "NAME:PLSegment",            
+                "SegmentType:="     , "Line",            
+                "StartIndex:="      , 18,            
+                "NoOfPoints:="      , 2
+            ],
+            [
+                "NAME:PLSegment",            
+                "SegmentType:="     , "Line",            
+                "StartIndex:="      , 19,            
                 "NoOfPoints:="      , 2
             ],
         ],
@@ -251,7 +275,7 @@ oEditor.CreatePolyline(
         "PartCoordinateSystem:=", "Global",
         "UDMId:="		, "",
         "IsAlwaysHiden:="	, False,
-        "MaterialValue:="	, ""vacuum"",
+        "MaterialValue:="	, "\"vacuum\"",
         "SolveInside:="		, True
     ])
 oProject.Save()

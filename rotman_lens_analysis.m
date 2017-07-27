@@ -112,8 +112,8 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na',11,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
+rotmanparams = struct('Na',15,'Nb', 9, 'Nd', 8, 'excited_port', 1, 'd', ... 
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 5);
 
 % calculate parameters for rotman lens
 rotman4 = RotmanDesign(rotmanparams, micro3);
