@@ -56,8 +56,15 @@ for i in range(len(X)):
     f.write('            \n                "X:="            , "{}mm",'.format(X[i]))
     f.write('            \n                "Y:="            , "{}mm",'.format(Y[i]))
     f.write('            \n                "Z:="            , "1.27mm"\n')
-    f.write('            ]\n')
-
-#f.write('"{}"'.format(X[1]))
+    f.write('            ],\n')
+f.write('        ],\n')
+f.write('        [\n            "NAME:PolylineSegments",\n')
+for i in range(len(X)):
+    f.write('            [\n                "NAME:PLSegment",')
+    f.write('            \n                "SegmentType:="     , "Line",')
+    f.write('            \n                "StartIndex:="      , %d' % i)
+    f.write('            \n                "NoOfPoints:="      , 2\n')
+    f.write('            ],\n')
+f.write('        ]\n')
 f.close
 #print(X)
