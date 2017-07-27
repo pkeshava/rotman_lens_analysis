@@ -133,7 +133,7 @@ classdef RotmanDesign
 
         end
         
-        function [rb, xcyc_b, xbyb] = beam_contour(obj)
+        function [rb, xcyc_b, xbyb, theta_r] = beam_contour(obj)
             xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
             yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
             xbyb = [xb yb];
@@ -141,17 +141,26 @@ classdef RotmanDesign
             [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
             N_add = (obj.Nb - 3)/2;
             x_l = -cos(obj.alpha*pi/180) - xcyc_b(1); % calculate length of line from center of beam contour to x position of Focal point
-            theta_r = acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
+            theta_r = 1.5*acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
             % Use this to calculate the position of each additional port
             if (N_add > 0)
+                arc_l = rb*theta_r;
                 for i = 1:N_add
-                    x_top(i) = xcyc_b(1) - rb*cos(theta_r*i/N_add);
-                    y_top(i) = xcyc_b(2) + rb*sin(theta_r*i/N_add);
+                    theta_rn = arc_l*i/((N_add+1)*rb);
+                    x_top(i) = xcyc_b(1) - rb*cos(theta_rn);
+                    y_top(i) = xcyc_b(2) + rb*sin(theta_rn);
+                    %x_top(i) = xcyc_b(1) - rb*cos(theta_r*i/(N_add));
+                    %y_top(i) = xcyc_b(2) + rb*sin(theta_r*i/(N_add));
                 end
                 for i = 1:N_add
-                    x_bot(i) = xcyc_b(1) - rb*cos(theta_r*i/N_add);
-                    y_bot(i) = xcyc_b(2) - rb*sin(theta_r*i/N_add);
+                    theta_rn = arc_l*i/((N_add+1)*rb);
+                    x_bot(i) = xcyc_b(1) - rb*cos(theta_rn);
+                    y_bot(i) = xcyc_b(2) - rb*sin(theta_rn);
+                    %x_bot(i) = xcyc_b(1) - rb*cos(theta_r*i/(N_add));
+                    %y_bot(i) = xcyc_b(2) - rb*sin(theta_r*i/(N_add));
                 end 
+
+                
                 x_top = fliplr(x_top);
                 y_top = fliplr(y_top);
                 xbyb = [xb(1) x_top xb(2) x_bot xb(3);...

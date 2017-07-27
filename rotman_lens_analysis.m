@@ -64,7 +64,7 @@ W_W0 = w*rotman3.F;
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
 % calculate beam contour based on rotman parameters
-[rb, xcyc_b, xbyb] = beam_contour(rotman3);
+[rb, xcyc_b, xbyb, theta_r] = beam_contour(rotman3);
 
 F = 0.0877;
 x_l = -cos(30*pi/180) - xcyc_b(1);
@@ -112,7 +112,7 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na',15,'Nb', 9, 'Nd', 8, 'excited_port', 1, 'd', ... 
+rotmanparams = struct('Na',7,'Nb', 11, 'Nd', 8, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 5);
 
 % calculate parameters for rotman lens
@@ -123,7 +123,7 @@ W_W0 = w*rotman4.F;
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
 % calculate beam contour based on rotman parameters
-[rb, xcyc_b, xbyb] = beam_contour(rotman4);
+[rb, xcyc_b, xbyb, theta_r] = beam_contour(rotman4);
 figure;
 plotbeamcountour(rb,xcyc_b,xbyb);
 hold on
