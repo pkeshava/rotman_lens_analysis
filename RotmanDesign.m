@@ -160,11 +160,13 @@ classdef RotmanDesign
                     %y_bot(i) = xcyc_b(2) - rb*sin(theta_r*i/(N_add));
                 end 
 
-                
-                x_top = fliplr(x_top);
-                y_top = fliplr(y_top);
-                xbyb = [xb(1) x_top xb(2) x_bot xb(3);...
-                    yb(1) y_top yb(2) y_bot yb(3) ];
+                x_bot = x_bot';
+                y_bot = y_bot';
+                x_top = fliplr(x_top)';
+                y_top = fliplr(y_top)';
+                xb = [xb(1); x_top; xb(2); x_bot; xb(3)];
+                yb = [yb(1); y_top; yb(2); y_bot; yb(3)];
+                xbyb = [xb yb];
             end
         end
         

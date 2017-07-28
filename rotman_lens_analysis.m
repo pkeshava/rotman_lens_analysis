@@ -112,8 +112,8 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na',7,'Nb', 11, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4);
+rotmanparams = struct('Na', 5,'Nb', 11, 'Nd', 8, 'excited_port', 1, 'd', ... 
+    0.58, 'alpha', 45, 'theta_t', 25, 'beta', 0.9, 'G', 4);
 
 % calculate parameters for rotman lens
 rotman4 = RotmanDesign(rotmanparams, micro3);
@@ -138,8 +138,8 @@ hold off
 Rb = rotman4.F*rb;
 XCYC_b = rotman4.F*xcyc_b;
 XBYB = rotman4.F*xbyb;
-Xa = rotman4.F*xa;
-Ya = rotman4.F*ya;
+Xa = rotman4.F*xa';
+Ya = rotman4.F*ya';
 
 figure;
 plotbeamcountour(Rb,XCYC_b,XBYB);
@@ -154,8 +154,8 @@ hold off
 % Create array for coordinates. No dummy ports yet just parallel plate
 % region
 
-X = [Xa XBYB(1,:)]'*1000;
-Y = [Ya XBYB(2,:)]'*1000;
+X = [Xa; XBYB(:,1)]*1000;
+Y = [Ya; XBYB(:,2)]*1000;
 
 out = [X,Y];
 save('RL_coordinates.mat','X','Y')
