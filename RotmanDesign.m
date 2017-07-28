@@ -41,6 +41,8 @@ classdef RotmanDesign
                        % optical abberation
         G              % on axis focal length as a function of lambda_g
         F              % off axis focal length
+        W0             % length of center transmission line in  wavelengths
+        taper_a          % length of tapers from antenna port to antenna TL in wavelengths
     end
     methods
         function obj = RotmanDesign(Rotmanparams,MicrostripDesign)
@@ -63,6 +65,8 @@ classdef RotmanDesign
                 obj.theta_t = pi/180*Rotmanparams.theta_t;
                 obj.beta = Rotmanparams.beta;
                 obj.G = Rotmanparams.G*obj.lambda_g;
+                obj.W0 = Rotmanparams.W0*obj.lambda_g;
+                obj.taper_a = Rotmanparams.taper_a*obj.lambda_g;
                 obj.F = obj.G*obj.beta;
                 obj.g_ideal = 1+obj.alpha^2/2;
             end
@@ -169,6 +173,11 @@ classdef RotmanDesign
                 xbyb = [xb yb];
             end
         end
-        
+       
+       function [xant_yant] = antenna_positions(obj, xa, w)
+           x_ant = obj.W0/obj.F*ones(size(w,2),1) + obj.taper_a*ones(size(w,2),1); 
+           y_ant = (-(obj.Na-1)/2:1:(obj.Na-1)/2)*obj.d*obj.lambda_0/obj.F;
+           xant_yant = [x_ant y_ant'];
+       end
     end
 end

@@ -112,8 +112,9 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na', 5,'Nb', 11, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 45, 'theta_t', 25, 'beta', 0.9, 'G', 4);
+rotmanparams = struct('Na', 11,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 4, ...
+    'taper_a', 1);
 
 % calculate parameters for rotman lens
 rotman4 = RotmanDesign(rotmanparams, micro3);
@@ -166,3 +167,18 @@ N = size(DATA,1)/2;
 X=DATA(:,1);
 Y=DATA(:,2);
 Z=zeros(N,1);
+
+[xant_yant] = antenna_positions(rotman4, xa, w);
+close all
+
+figure;
+plotbeamcountour(rb,xcyc_b,xbyb);
+hold on
+scatter(xa,ya);
+legend('Beam Port Phase Centres', 'Beam Port Contour', 'Array Port Phase Centres');
+xlabel('Normalized x coordinates with respect to F')
+ylabel('Normalized y coordinates with respect to F')
+title('Array Port and Beam Port Normalized Phase Centres')
+scatter(xant_yant(:,1),xant_yant(:,2));
+hold off
+
