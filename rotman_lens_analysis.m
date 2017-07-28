@@ -113,7 +113,7 @@ micro3 = MicrostripDesign(constants,input);
 
 % Define input fields for the rotman design
 rotmanparams = struct('Na', 11,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 4, ...
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
     'taper_a', 1);
 
 % calculate parameters for rotman lens
@@ -125,11 +125,14 @@ ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
 % calculate beam contour based on rotman parameters
 [rb, xcyc_b, xbyb, theta_r] = beam_contour(rotman4);
+[xant_yant] = antenna_positions(rotman4, xa, w);
 figure;
 plotbeamcountour(rb,xcyc_b,xbyb);
 hold on
 scatter(xa,ya);
-legend('Beam Port Phase Centres', 'Beam Port Contour', 'Array Port Phase Centres');
+scatter(xant_yant(:,1),xant_yant(:,2));
+legend('Beam Port Phase Centres', 'Beam Port Contour', ...
+    'Array Port Phase Centres', 'Antenna Postitions');
 xlabel('Normalized x coordinates with respect to F')
 ylabel('Normalized y coordinates with respect to F')
 title('Array Port and Beam Port Normalized Phase Centres')
@@ -141,14 +144,19 @@ XCYC_b = rotman4.F*xcyc_b;
 XBYB = rotman4.F*xbyb;
 Xa = rotman4.F*xa';
 Ya = rotman4.F*ya';
+Xant = rotman4.F*xant_yant(:,1);
+Yant = rotman4.F*xant_yant(:,2);
 
 figure;
-plotbeamcountour(Rb,XCYC_b,XBYB);
+plotbeamcountour(Rb*1000,XCYC_b*1000,XBYB*1000);
 hold on
-scatter(Xa,Ya);
-legend('Beam Port Phase Centres', 'Beam Port Contour', 'Array Port Phase Centres');
-xlabel('X Coordinate of Rotman Lens')
-ylabel('Y Coordinates of Rotman Lens')
+grid on
+scatter(Xa*1000,Ya*1000);
+scatter(Xant*1000,Yant*1000);
+legend('Beam Port Phase Centres', 'Beam Port Contour', ... 
+    'Array Port Phase Centres', 'Antenna Positions');
+xlabel('X Coordinate of Rotman Lens (mm)')
+ylabel('Y Coordinates of Rotman Lens (mm)')
 title('Array Port and Beam Port Phase Centres')
 hold off
 
@@ -168,17 +176,4 @@ X=DATA(:,1);
 Y=DATA(:,2);
 Z=zeros(N,1);
 
-[xant_yant] = antenna_positions(rotman4, xa, w);
-close all
-
-figure;
-plotbeamcountour(rb,xcyc_b,xbyb);
-hold on
-scatter(xa,ya);
-legend('Beam Port Phase Centres', 'Beam Port Contour', 'Array Port Phase Centres');
-xlabel('Normalized x coordinates with respect to F')
-ylabel('Normalized y coordinates with respect to F')
-title('Array Port and Beam Port Normalized Phase Centres')
-scatter(xant_yant(:,1),xant_yant(:,2));
-hold off
 
