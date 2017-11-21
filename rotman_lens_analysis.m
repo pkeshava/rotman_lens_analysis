@@ -9,7 +9,7 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency',5.9e9,'Height', 50, 'Width', 40, ...
+input = struct('Frequency', 2.4e9,'Height', 50, 'Width', 40, ...
     'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro1 = MicrostripDesign(constants,input);
@@ -45,7 +45,7 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency',5.9e9,'Height', 50, 'Width', 40, ...
+input = struct('Frequency',2.4e9,'Height', 50, 'Width', 40, ...
     'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro2 = MicrostripDesign(constants,input);
@@ -104,15 +104,15 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency',5.9e9,'Height', 50, 'Width', 40, ...
-    'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
+input = struct('Frequency',2.4e9,'Height', 50, 'Width', 40, ...
+    'copper_t', 1.4, 'Sub_epsr', 10.5, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro3 = MicrostripDesign(constants,input);
 [Z_0,eps_eff,lambda_g, lambda_g_q, alpha_c, alpha_d] = ...
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na', 11,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
+rotmanparams = struct('Na', 7,'Nb', 7, 'Nd', 8, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
     'taper_a', 1);
 
@@ -178,5 +178,24 @@ N = size(DATA,1)/2;
 X=DATA(:,1);
 Y=DATA(:,2);
 Z=zeros(N,1);
+%% New transistor working at 2G..
 
 
+clear all
+close all
+clc
+theta = linspace(0,2*pi,5000);
+% Load Constants
+constants = load('constants.mat');
+% Define input fields for the microstrip design
+input = struct('Frequency',2.4e9,'Height', 50, 'Width', 40, ...
+    'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
+% create microstrip object instance
+micro1 = MicrostripDesign(constants,input);
+[Z_0,eps_eff,lambda_g, lambda_g_q, alpha_c, alpha_d] = ...
+    calc_values(micro1,constants);
+
+% Define input fields for the rotman design
+rotmanparams = struct('Na', 3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ... 
+    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
+    'taper_a', 1);
