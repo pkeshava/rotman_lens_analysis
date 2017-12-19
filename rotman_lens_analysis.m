@@ -199,3 +199,21 @@ micro1 = MicrostripDesign(constants,input);
 rotmanparams = struct('Na', 3,'Nb', 3, 'Nd', 8, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
     'taper_a', 1);
+
+%% Calculation of Radar Cross Section of Transponder. 
+clear all
+close all
+clc
+
+% Load Constants
+constants = load('constants.mat');
+% Define input fields for the microstrip design
+input = struct('Frequency', 77e9,'Height', 50, 'Width', 40, ...
+    'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
+
+G_ant = 500;
+lambda = constants.c/input.Frequency;
+Gamma1 = 100;
+Gamma2 = Gamma1*exp(1i*pi);
+sigma_m = G_ant^2*lambda^2*abs((Gamma1-Gamma2)^2)/(16*pi);
+
