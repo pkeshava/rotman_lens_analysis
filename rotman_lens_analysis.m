@@ -216,4 +216,5 @@ lambda = constants.c/input.Frequency;
 Gamma1 = 100;
 Gamma2 = Gamma1*exp(1i*pi);
 sigma_m = G_ant^2*lambda^2*abs((Gamma1-Gamma2)^2)/(16*pi);
+sigma = G_ant^2*lambda^2*abs((1-Gamma1)^2)/(4*pi);
 
