@@ -9,7 +9,7 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency', 2.4e9,'Height', 50, 'Width', 40, ...
+input = struct('Frequency', 5.3e9,'Height', 50, 'Width', 40, ...
     'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro1 = MicrostripDesign(constants,input);
@@ -45,7 +45,7 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency',2.4e9,'Height', 50, 'Width', 40, ...
+input = struct('Frequency',5.3e9,'Height', 50, 'Width', 40, ...
     'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro2 = MicrostripDesign(constants,input);
@@ -104,7 +104,7 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency',5.1e9,'Height', 50, 'Width', 40, ...
+input = struct('Frequency',5.3e9,'Height', 50, 'Width', 40, ...
     'copper_t', 1.4, 'Sub_epsr', 10.5, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro3 = MicrostripDesign(constants,input);
