@@ -5,7 +5,7 @@
 
 def HFSS_scripter(X,Y):
     f = open('rotmanHFSS.py', 'w')
-    f.write('import ScriptEnv\nScriptEnv.Initialize("Ansoft.ElectronicsDesktop")\noDesktop.RestoreWindow()\noProject = oDesktop.SetActiveProject("RL_template")\noDesign = oProject.SetActiveDesign("RL_template")\noEditor = oDesign.SetActiveEditor("3D Modeler")\noEditor.CreatePolyline(\n')
+    f.write('import ScriptEnv\nScriptEnv.Initialize("Ansoft.ElectronicsDesktop")\noDesktop.RestoreWindow()\noProject = oDesktop.SetActiveProject("Rotman5p3")\noDesign = oProject.SetActiveDesign("Rotman5p3")\noEditor = oDesign.SetActiveEditor("3D Modeler")\noEditor.CreatePolyline(\n')
     f.write('    [\n        "NAME:PolylineParameters",\n        "IsPolylineCovered:="    , True,\n        "IsPolylineClosed:="     , True,\n')
     f.write('        [\n            "NAME:PolylinePoints",\n')
     for i in range(len(X)):
