@@ -1,38 +1,38 @@
-function [xbyb, xbyb_t] = additional_ports(N_add,theta_r,rb,rb_t,xcyc_b, xcyc_t,...
-    xb,yb,xb_t,yb_t)
+function beam = additional_ports(beam)
 
-    
-    arc_l = rb*theta_r;
-    for i = 1:N_add
-        theta_rn = arc_l*i/((N_add+1)*rb);
-        x_top(i) = xcyc_b(1) - rb*cos(theta_rn);
-        y_top(i) = xcyc_b(2) + rb*sin(theta_rn);
-        x_t_top(i) = xcyc_t(1) - rb_t*cos(theta_rn);
-        y_t_top(i) = xcyc_t(2) + rb_t*sin(theta_rn);
+    arc_l = beam.rb * beam.theta_r;
+    for i = 1:beam.N_add
+        theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
+        x_top(i) = beam.xcyc_b(1) - beam.rb*cos(theta_rn);
+        y_top(i) = beam.xcyc_b(2) + beam.rb*sin(theta_rn);
+        x_t_top(i) = beam.xcyc_t(1) - beam.rb_t*cos(theta_rn);
+        y_t_top(i) = beam.xcyc_t(2) + beam.rb_t*sin(theta_rn);
 
     end
-    for i = 1:N_add
-        theta_rn = arc_l*i/((N_add+1)*rb);
-        x_bot(i) = xcyc_b(1) - rb*cos(theta_rn);
-        y_bot(i) = xcyc_b(2) - rb*sin(theta_rn);
-        x_t_bot(i) = xcyc_t(1) - rb_t*cos(theta_rn);
-        y_t_bot(i) = xcyc_b(2) - rb_t*sin(theta_rn);
+    for i = 1:beam.N_add
+        theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
+        x_bot(i) = beam.xcyc_b(1) - beam.rb*cos(theta_rn);
+        y_bot(i) = beam.xcyc_b(2) - beam.rb*sin(theta_rn);
+        x_t_bot(i) = beam.xcyc_t(1) - beam.rb_t*cos(theta_rn);
+        y_t_bot(i) = beam.xcyc_b(2) - beam.rb_t*sin(theta_rn);
     end 
 
     x_bot = x_bot';
     y_bot = y_bot';
     x_top = fliplr(x_top)';
     y_top = fliplr(y_top)';
-    xb = [xb(1); x_top; xb(2); x_bot; xb(3)];
-    yb = [yb(1); y_top; yb(2); y_bot; yb(3)];
-    xbyb = [xb yb];
+    beam.xb = [beam.xb(1); x_top; beam.xb(2); x_bot; beam.xb(3)];
+    beam.yb = [beam.yb(1); y_top; beam.yb(2); y_bot; beam.yb(3)];
+    beam.xbyb = [beam.xb beam.yb];
 
     x_t_bot = x_t_bot';
     y_t_bot = y_t_bot';
     x_t_top = fliplr(x_t_top)';
     y_t_top = fliplr(y_t_top)';
-    xb_t = [xb_t(1); x_t_top; xb_t(2); x_t_bot; xb_t(3)];
-    yb_t = [yb_t(1); y_t_top; yb_t(2); y_t_bot; yb_t(3)];
-    xbyb_t = [xb_t yb_t];
+    beam.xb_t = [beam.xb_t(1); x_t_top; beam.xb_t(2); ...
+        x_t_bot; beam.xb_t(3)];
+    beam.yb_t = [beam.yb_t(1); y_t_top; beam.yb_t(2); ...
+        y_t_bot; beam.yb_t(3)];
+    beam.xbyb_t = [beam.xb_t beam.yb_t];
             
 end

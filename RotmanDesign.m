@@ -137,40 +137,68 @@ classdef RotmanDesign
 
         end
         
-        function [rb, xcyc_b, xbyb, theta_r,xbyb_t] = beam_contour(obj)
+        function beam = beam_contour(obj)
             
-            N_add = (obj.Nb - 3)/2; % Determine number of additional focal beam points
-            % Initalize coordinates for focal beam ports.
-            xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
-            yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
-            xbyb = [xb yb];
-            % Determine center and radius of beam port contour
-            ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
-            [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
-            x_l = -cos(obj.alpha) - xcyc_b(1); % calculate length of line from center of beam contour to x position of Focal point
+            beam = beamport_struct(obj);
             
-            z = (obj.F+obj.taper_a)/obj.F; % this is the length of line from origin to taper end on beam port. Use to calculate taper coordinate
-            % Rinse and repeat for contour extended by taper length. 
-            xb_t = [-z*cos(obj.alpha);-z/obj.beta;-z*cos(obj.alpha)];
-            yb_t = [z*sin(obj.alpha);0;-z*sin(obj.alpha)]; 
-            ABC2 = [xb_t(1) yb_t(1);xb_t(2) yb_t(2);xb_t(3) yb_t(3)];
-            xbyb_t = [xb_t yb_t];
-            [rb_t,xcyc_t] = fit_circle_through_3_points(ABC2);
-
-            theta_r = acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
-            % Use this to calculate the position of each additional port
-            if (N_add > 0)
-                [xbyb, xbyb_t] = additional_ports(N_add,theta_r,rb,rb_t,xcyc_b,...
-                    xcyc_t,xb,yb,xb_t,yb_t);
+            if (beam.N_add > 0)
+                beam = additional_ports(beam);
             end
             
         end
        
-       function [xant_yant] = antenna_positions(obj, xa, w)
+        function [xant_yant] = antenna_positions(obj, xa, w)
            x_ant = obj.W0/obj.F*ones(size(w,2),1) + obj.taper_a*ones(size(w,2),1); 
            y_ant = (-(obj.Na-1)/2:1:(obj.Na-1)/2)*obj.d*obj.lambda_0/obj.F;
            xant_yant = [x_ant y_ant'];
-       end
+        end
+       
+        function beam = beamport_struct(obj)
+            % beamport struct creates a structure with 
+            % all the relvant variables required to create
+            % the geometry of the beamport and the tapered extention
+
+            % N.add                 Number of additional ports
+            % xb/yb/xbyb            beam port untapered coordinates
+            % xb_t/yb_t/xbyb_t      beam port tapered coordinates
+            % theta_r               incremental angles measured from beam port
+            %                       radius defining additional port placement
+            % rb                    radius of beam port contour
+            % rb_t                  radius of tapered beam port contour
+            % xcyc                  beam port contour center coordinates
+            % xcyc_t                tapered beam port contour center coordinates
+            %
+
+            % Determine number of additional focal beam points
+            beam.N_add = (obj.Nb - 3)/2;
+
+            beam.xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
+            beam.yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
+            beam.xbyb = [beam.xb beam.yb];
+
+            % Determine center and radius of beam port contour
+            ABC = [beam.xb(1) beam.yb(1);beam.xb(2)...
+                beam.yb(2);beam.xb(3) beam.yb(3)];
+            [beam.rb,beam.xcyc_b] = fit_circle_through_3_points(ABC); 
+
+            % calculate length of line from center of beam contour to x position of Focal point
+            x_l = -cos(obj.alpha) - beam.xcyc_b(1); 
+            % determine the angle represented by radius and x_l
+            beam.theta_r = acos(abs(x_l/beam.rb)); 
+            % Use this to calculate the position of each additional port
+
+            % Determine length of line from origin to taper end on beam port. Use to calculate taper coordinate
+            z = (obj.F+obj.taper_a)/obj.F;
+
+            % Rinse and repeat for contour extended by taper length. 
+            beam.xb_t = [-z*cos(obj.alpha);-z/obj.beta;-z*cos(obj.alpha)];
+            beam.yb_t = [z*sin(obj.alpha);0;-z*sin(obj.alpha)]; 
+            ABC2 = [beam.xb_t(1) beam.yb_t(1);beam.xb_t(2)...
+                beam.yb_t(2);beam.xb_t(3) beam.yb_t(3)];
+            beam.xbyb_t = [beam.xb_t beam.yb_t];
+            [beam.rb_t,beam.xcyc_t] = fit_circle_through_3_points(ABC2);
+        end
        
     end
+    
 end

@@ -112,7 +112,7 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na', 3,'Nb', 3, 'Nd', 0, 'excited_port', 1, 'd', ... 
+rotmanparams = struct('Na', 7,'Nb', 7, 'Nd', 0, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
     'taper_a', 1);
 
@@ -124,10 +124,12 @@ W_W0 = w*rotman4.F;
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
 % calculate beam contour based on rotman parameters
-[rb, xcyc_b, xbyb, theta_r,xbyb_t] = beam_contour(rotman4);
+%[rb, xcyc_b, xbyb, theta_r,xbyb_t] = beam_contour(rotman4);
+beam = beam_contour(rotman4);
 [xant_yant] = antenna_positions(rotman4, xa, w);
 figure;
-plotbeamcountour(rb,xcyc_b,xbyb);
+%plotbeamcountour(rb,xcyc_b,xbyb);
+plotbeamcountour(beam.rb,beam.xcyc_b,beam.xbyb);
 hold on
 scatter(xa,ya);
 scatter(xant_yant(:,1),xant_yant(:,2));
@@ -142,10 +144,10 @@ close all
 
 
 % Plot unnormalized 
-Rb = rotman4.F*rb;
-XCYC_b = rotman4.F*xcyc_b;
-XBYB = rotman4.F*xbyb;
-XBYB_t = rotman4.F*xbyb_t;
+Rb = rotman4.F*beam.rb;
+XCYC_b = rotman4.F*beam.xcyc_b;
+XBYB = rotman4.F*beam.xbyb;
+XBYB_t = rotman4.F*beam.xbyb_t;
 
 Xa = rotman4.F*xa';
 Ya = rotman4.F*ya';
