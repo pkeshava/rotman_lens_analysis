@@ -137,7 +137,7 @@ classdef RotmanDesign
 
         end
         
-        function [rb, xcyc_b, xbyb, theta_r,xbyb_t] = beam_contour(obj)
+        function [rb, xcyc_b, xbyb, theta_r,xbyb_t, xoyo] = beam_contour(obj)
             xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
             yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
             xbyb = [xb yb];
@@ -153,9 +153,16 @@ classdef RotmanDesign
             xbyb_t = [xb_t yb_t];
             [rb_t,xcyc_t] = fit_circle_through_3_points(ABC2);
             
+            %calculate offset points for taper
+            rho = 0.0005/obj.F; % 50 ohm width/2
+            phi = atan(rho/rb_t); 
+            %x_t_topoffset = [-z*cos(obj.alpha);-z/obj.beta;-z*cos(obj.alpha)];
             
             theta_r = acos(abs(x_l/rb)); % determine the angle represented by radius and x_l
             % Use this to calculate the position of each additional port
+            
+            
+            xoyo = [x_top_top_offset;y_top_top_offset];
             
             if (N_add > 0)
                 arc_l = rb*theta_r;
@@ -165,7 +172,7 @@ classdef RotmanDesign
                     y_top(i) = xcyc_b(2) + rb*sin(theta_rn);
                     x_t_top(i) = xcyc_t(1) - rb_t*cos(theta_rn);
                     y_t_top(i) = xcyc_t(2) + rb_t*sin(theta_rn);
-
+                     
                 end
                 for i = 1:N_add
                     theta_rn = arc_l*i/((N_add+1)*rb);
