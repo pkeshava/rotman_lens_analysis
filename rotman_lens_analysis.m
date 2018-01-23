@@ -124,7 +124,7 @@ W_W0 = w*rotman4.F;
 ABC = [xa(1) ya(1);xa(2) ya(2);xa(3) ya(3)];
 [r,xcyc] = fit_circle_through_3_points(ABC);
 % calculate beam contour based on rotman parameters
-[rb, xcyc_b, xbyb, theta_r,xbyb_t,xoyo] = beam_contour(rotman4);
+[rb, xcyc_b, xbyb, theta_r,xbyb_t] = beam_contour(rotman4);
 [xant_yant] = antenna_positions(rotman4, xa, w);
 figure;
 plotbeamcountour(rb,xcyc_b,xbyb);
@@ -146,7 +146,7 @@ Rb = rotman4.F*rb;
 XCYC_b = rotman4.F*xcyc_b;
 XBYB = rotman4.F*xbyb;
 XBYB_t = rotman4.F*xbyb_t;
-XOYO = rotman4.F*xoyo;
+
 Xa = rotman4.F*xa';
 Ya = rotman4.F*ya';
 Xant = rotman4.F*xant_yant(:,1);
@@ -159,7 +159,7 @@ grid on
 scatter(Xa*1000,Ya*1000);
 scatter(Xant*1000,Yant*1000);
 scatter(XBYB_t(:,1)*1000,XBYB_t(:,2)*1000);
-scatter(XOYO(1)*1000,XOYO(2)*1000);
+
 legend('Beam Port Phase Centres', 'Beam Port Contour', ... 
     'Array Port Phase Centres', 'Antenna Positions', 'Tapered Phase Center');
 xlabel('X Coordinate of Rotman Lens (mm)')
