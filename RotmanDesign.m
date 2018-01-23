@@ -44,6 +44,7 @@ classdef RotmanDesign
         W0             % length of center transmission line in  wavelengths
         taper_a        % length of tapers from antenna port to antenna TL in wavelengths
     end
+    
     methods
         function obj = RotmanDesign(Rotmanparams,MicrostripDesign)
             % check to make sure that port numbers are odd
@@ -71,41 +72,7 @@ classdef RotmanDesign
                 obj.g_ideal = 1+obj.alpha^2/2;
             end
         end
-        function [AF] = calc_AF(obj,S)
-            % Adjust it to only be a 2 dimensional matrix since we only care 
-            % about the first mode
-            for i=1:obj.Nt
-                S_Param(i,:)= S(1,i,:);
-            end 
-            theta = linspace(0,2*pi,5000);
-            % Get all S parameters for excited port
-            S_Param_antennas = S_Param(:,obj.excited_port);
-            % create a smaller matrix with the Transmission parameter of the 
-            % antenna ports from the excited port i.e S14,1 S13,1 S12,1
-            for i=0:obj.Na-1
-                S_a(1,i+1) = S_Param_antennas(obj.Nt-i,1);
-            end
-            for i=1:obj.Na
-                % Determine the phase of each
-                a_phase(1,i) = angle(S_a(1,i));
-                % Determine the mag of each
-                S_mag(1,i) = abs(S_a(1,i));
-                % Renormalize relative phase and set phase of last element 
-                % to zero 
-                a_phase_r(1,i) = a_phase(1,i) - a_phase(1,1);
-            end         
-            % Calculate the phase psi for each element based on simple
-            % linear array theory and then the corresponding array factor
-            for n = 0:obj.Na-1
-                for i = 1:size(theta,2)
-                    psi(n+1,i) = n*(obj.Beta_d*cos(theta(i))+ ... 
-                        a_phase_r(n+1));
-                    AF(n+1,i) = S_mag(1,n+1)*exp(-1i*psi(n+1,i));
-                end
-            end
-            AF = abs(sum(AF(1:obj.Na,:)));
- 
-        end
+        
         function [a, b, c, w, xa, ya] = calc_dimensions(obj,microstrip)
             % First define normalized parameters
             Ny=(1:1:obj.Na)*obj.d*obj.lambda_0-(obj.Na+1)*obj.d*obj.lambda_0/2;
@@ -137,22 +104,6 @@ classdef RotmanDesign
 
         end
         
-        function beam = beam_contour(obj)
-            
-            beam = beamport_struct(obj);
-            
-            if (beam.N_add > 0)
-                beam = additional_ports(beam);
-            end
-            beam = microstrip50_coord(beam,obj);
-        end
-       
-        function [xant_yant] = antenna_positions(obj, xa, w)
-           x_ant = obj.W0/obj.F*ones(size(w,2),1) + obj.taper_a*ones(size(w,2),1); 
-           y_ant = (-(obj.Na-1)/2:1:(obj.Na-1)/2)*obj.d*obj.lambda_0/obj.F;
-           xant_yant = [x_ant y_ant'];
-        end
-       
         function beam = beamport_struct(obj)
             % beamport struct creates a structure with 
             % all the relvant variables required to create
@@ -193,46 +144,70 @@ classdef RotmanDesign
             % Rinse and repeat for contour extended by taper length. 
             beam.xb_t = [-z*cos(obj.alpha);-z/obj.beta;-z*cos(obj.alpha)];
             beam.yb_t = [z*sin(obj.alpha);0;-z*sin(obj.alpha)]; 
+            % this is where we should initialize the center point to rotate
+            %xb_to = [-z/obj.beta -z/obj.beta];
+            %xb_to = [.0005/obj.F -.0005/obj.F];
+            %beam.xbyb_to = [xb_to beam.yb_to];
+            
+            
             ABC2 = [beam.xb_t(1) beam.yb_t(1);beam.xb_t(2)...
                 beam.yb_t(2);beam.xb_t(3) beam.yb_t(3)];
             beam.xbyb_t = [beam.xb_t beam.yb_t];
             [beam.rb_t,beam.xcyc_t] = fit_circle_through_3_points(ABC2);
+           
         end
-       
-        function beam = microstrip50_coord(beam,obj)
-            % calculate the offset angle between the 
-            % centerline of the tapered beam coordinate
-            % and where the edge of the 50 ohm microstrip is
-            phi = atan(0.0005/(obj.F*beam.rb_t));
-            xd = 0.0005/obj.F*sin(phi);
-            yd = 0.0005/obj.F*cos(phi);    
+        
+
+        
+        function beam = beam_contour(obj)
             
-            for i=1:obj.Nb                
-                if(i < (obj.Nb+1)/2)
-                    x_u_u = beam.xbyb_t(i,1)+xd;
-                    y_u_u = beam.xbyb_t(i,2)+yd;
-                    x_u_d = beam.xbyb_t(i,1)-xd;
-                    y_u_d = beam.xbyb_t(i,2)-yd;
-                
-                elseif(i == (obj.Nb+1)/2)
-                    x_m_u = beam.xbyb_t(i,1);
-                    y_m_u = beam.xbyb_t(i,2)+0.0005/obj.F;
-                    x_m_d = beam.xbyb_t(i,1);
-                    y_m_d = beam.xbyb_t(i,2)-0.0005/obj.F;
-                    
-                
-                elseif(i > (obj.Nb+1)/2)
-                    x_d_u = beam.xbyb_t(i,1)-xd;
-                    y_d_u = beam.xbyb_t(i,2)+yd;
-                    x_d_d = beam.xbyb_t(i,1)+xd;
-                    y_d_d = beam.xbyb_t(i,2)-yd;
-                end
+            beam = beamport_struct(obj);
+            
+            if (beam.N_add > 0)
+                beam = additional_ports(beam);
             end
-            beam.x_t_m = [x_u_u';x_u_d';x_m_u;x_m_d;x_d_u';x_d_d'];
-            beam.y_t_m = [y_u_u';y_u_d';y_m_u;y_m_d;y_d_u';y_d_d'];
-            beam.xtmytm = [beam.x_t_m beam.y_t_m];
-            
+        % this is where we should do the rotation
+        
         end
+        
+        function [xant_yant] = antenna_positions(obj, xa, w)
+            
+           x_ant = obj.W0/obj.F*ones(size(w,2),1) + obj.taper_a*ones(size(w,2),1); 
+           y_ant = (-(obj.Na-1)/2:1:(obj.Na-1)/2)*obj.d*obj.lambda_0/obj.F;
+           xant_yant = [x_ant y_ant'];
+           
+        end
+        
+        function [AF] = calc_AF(obj,S)
+        
+            % Adjust it to only be a 2 dimensional matrix since we only care 
+            % about the first mode
+            for i=1:obj.Nt
+                S_Param(i,:)= S(1,i,:);
+            end 
+            theta = linspace(0,2*pi,5000);
+            % Get all S parameters for excited port
+            S_Param_antennas = S_Param(:,obj.excited_port);
+            % create a smaller matrix with the Transmission parameter of the 
+            % antenna ports from the excited port i.e S14,1 S13,1 S12,1
+            for i=0:obj.Na-1
+                S_a(1,i+1) = S_Param_antennas(obj.Nt-i,1);
+            end
+            for i=1:obj.Na
+                % Determine the phase of each
+                a_phase(1,i) = angle(S_a(1,i));
+                % Determine the mag of each
+                S_mag(1,i) = abs(S_a(1,i));
+                % Renormalize relative phase and set phase of last element 
+                % to zero 
+                a_phase_r(1,i) = a_phase(1,i) - a_phase(1,1);
+            end 
+        end
+  
+       
+        %function beam = microstrip50_coord(beam,obj)
+
+        %end
         
     end
     

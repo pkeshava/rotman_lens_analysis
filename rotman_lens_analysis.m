@@ -97,9 +97,11 @@ hold off
 
 %% More dev
 
-clear all
+
 close all
+%clear all
 clc
+
 theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
@@ -112,7 +114,7 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na', 3,'Nb', 3, 'Nd', 0, 'excited_port', 1, 'd', ... 
+rotmanparams = struct('Na', 7,'Nb', 7, 'Nd', 0, 'excited_port', 1, 'd', ... 
     0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
     'taper_a', 1);
 
@@ -149,7 +151,7 @@ XCYC_b = rotman4.F*beam.xcyc_b;
 XBYB = rotman4.F*beam.xbyb;
 XBYB_t = rotman4.F*beam.xbyb_t;
 
-XtmYtm = rotman4.F*beam.xtmytm;
+%XtmYtm = rotman4.F*beam.xtmytm;
 
 Xa = rotman4.F*xa';
 Ya = rotman4.F*ya';
@@ -163,7 +165,7 @@ grid on
 scatter(Xa*1000,Ya*1000);
 scatter(Xant*1000,Yant*1000);
 scatter(XBYB_t(:,1)*1000,XBYB_t(:,2)*1000);
-scatter(XtmYtm(:,1)*1000,XtmYtm(:,2)*1000);
+%scatter(XtmYtm(:,1)*1000,XtmYtm(:,2)*1000);
 
 legend('Beam Port Phase Centres', 'Beam Port Contour', ... 
     'Array Port Phase Centres', 'Antenna Positions', 'Tapered Phase Center');

@@ -1,6 +1,7 @@
 function beam = additional_ports(beam)
 
     arc_l = beam.rb * beam.theta_r;
+    
     for i = 1:beam.N_add
         theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
         x_top(i) = beam.xcyc_b(1) - beam.rb*cos(theta_rn);
@@ -34,5 +35,5 @@ function beam = additional_ports(beam)
     beam.yb_t = [beam.yb_t(1); y_t_top; beam.yb_t(2); ...
         y_t_bot; beam.yb_t(3)];
     beam.xbyb_t = [beam.xb_t beam.yb_t];
-            
+    
 end
