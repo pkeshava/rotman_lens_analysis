@@ -144,7 +144,7 @@ classdef RotmanDesign
             if (beam.N_add > 0)
                 beam = additional_ports(beam);
             end
-            
+            beam = microstrip50_coord(beam,obj);
         end
        
         function [xant_yant] = antenna_positions(obj, xa, w)
@@ -167,7 +167,7 @@ classdef RotmanDesign
             % rb_t                  radius of tapered beam port contour
             % xcyc                  beam port contour center coordinates
             % xcyc_t                tapered beam port contour center coordinates
-            %
+            % xtm ytm 
 
             % Determine number of additional focal beam points
             beam.N_add = (obj.Nb - 3)/2;
@@ -199,6 +199,41 @@ classdef RotmanDesign
             [beam.rb_t,beam.xcyc_t] = fit_circle_through_3_points(ABC2);
         end
        
+        function beam = microstrip50_coord(beam,obj)
+            % calculate the offset angle between the 
+            % centerline of the tapered beam coordinate
+            % and where the edge of the 50 ohm microstrip is
+            phi = atan(0.0005/(obj.F*beam.rb_t));
+            xd = 0.0005/obj.F*sin(phi);
+            yd = 0.0005/obj.F*cos(phi);    
+            
+            for i=1:obj.Nb                
+                if(i < (obj.Nb+1)/2)
+                    x_u_u = beam.xbyb_t(i,1)+xd;
+                    y_u_u = beam.xbyb_t(i,2)+yd;
+                    x_u_d = beam.xbyb_t(i,1)-xd;
+                    y_u_d = beam.xbyb_t(i,2)-yd;
+                
+                elseif(i == (obj.Nb+1)/2)
+                    x_m_u = beam.xbyb_t(i,1);
+                    y_m_u = beam.xbyb_t(i,2)+0.0005/obj.F;
+                    x_m_d = beam.xbyb_t(i,1);
+                    y_m_d = beam.xbyb_t(i,2)-0.0005/obj.F;
+                    
+                
+                elseif(i > (obj.Nb+1)/2)
+                    x_d_u = beam.xbyb_t(i,1)-xd;
+                    y_d_u = beam.xbyb_t(i,2)+yd;
+                    x_d_d = beam.xbyb_t(i,1)+xd;
+                    y_d_d = beam.xbyb_t(i,2)-yd;
+                end
+            end
+            beam.x_t_m = [x_u_u';x_u_d';x_m_u;x_m_d;x_d_u';x_d_d'];
+            beam.y_t_m = [y_u_u';y_u_d';y_m_u;y_m_d;y_d_u';y_d_d'];
+            beam.xtmytm = [beam.x_t_m beam.y_t_m];
+            
+        end
+        
     end
     
 end
