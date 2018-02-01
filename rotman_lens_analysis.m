@@ -9,7 +9,7 @@ theta = linspace(0,2*pi,5000);
 % Load Constants
 constants = load('constants.mat');
 % Define input fields for the microstrip design
-input = struct('Frequency', 5.3e9,'Height', 50, 'Width', 40, ...
+input = struct('Frequency', 2.3e9,'Height', 30, 'Width', 49.3701, ...
     'copper_t', 1.4, 'Sub_epsr', 10.2, 'Sub_lsstan', 0.0023);
 % create microstrip object instance
 micro1 = MicrostripDesign(constants,input);
@@ -54,7 +54,7 @@ micro2 = MicrostripDesign(constants,input);
 
 % Define input fields for the rotman design
 rotmanparams = struct('Na', 3,'Nb', 3, 'Nd', 9, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
+    0.5, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
     'taper_a', 1);
 % calculate parameters for rotman lens
 rotman3 = RotmanDesign(rotmanparams, micro2);
@@ -114,8 +114,8 @@ micro3 = MicrostripDesign(constants,input);
     calc_values(micro3,constants);
 
 % Define input fields for the rotman design
-rotmanparams = struct('Na', 7,'Nb', 7, 'Nd', 0, 'excited_port', 1, 'd', ... 
-    0.58, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 4, 'W0', 2, ...
+rotmanparams = struct('Na', 7,'Nb', 5, 'Nd', 3, 'excited_port', 1, 'd', ... 
+    0.5, 'alpha', 30, 'theta_t', 25, 'beta', 0.9, 'G', 5, 'W0', 2, ...
     'taper_a', 1);
 
 % calculate parameters for rotman lens
@@ -144,7 +144,9 @@ hold off
 close all
 
 
-
+[xbt_r, ybt_r] = rotated_taper(rotman4, beam);
+xbtrybtr = [xbt_r ybt_r];
+XYBTR = rotman4.F*xbtrybtr;
 % Plot unnormalized 
 Rb = rotman4.F*beam.rb;
 XCYC_b = rotman4.F*beam.xcyc_b;
@@ -165,6 +167,7 @@ grid on
 scatter(Xa*1000,Ya*1000);
 scatter(Xant*1000,Yant*1000);
 scatter(XBYB_t(:,1)*1000,XBYB_t(:,2)*1000);
+scatter(XYBTR(:,1)*1000,XYBTR(:,2)*1000);
 %scatter(XtmYtm(:,1)*1000,XtmYtm(:,2)*1000);
 
 legend('Beam Port Phase Centres', 'Beam Port Contour', ... 

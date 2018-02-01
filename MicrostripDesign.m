@@ -24,6 +24,7 @@ classdef MicrostripDesign < handle
     end
     methods
         function obj = MicrostripDesign(constants,input)
+            obj.Frequency = input.Frequency;
             obj.omega = 2*pi*input.Frequency;
             obj.lambda_0 = constants.c/input.Frequency;
             obj.Height = input.Height*constants.CF;
@@ -56,7 +57,7 @@ classdef MicrostripDesign < handle
             if(W_H > 1)
     
                 eps_eff = (obj.Sub_epsr+1)/2 + (obj.Sub_epsr-1)/2*(1 + 12/W_H)^(-1/2);
-                Z_0 = eta/sqrt(eps_eff)/(W_H+1.393+0.667*log(W_H+1.444));
+                Z_0 = 120*pi/sqrt(eps_eff)/(W_H+1.393+0.667*log(W_H+1.444));
             else
                 eps_eff = (obj.Sub_epsr+1)/2 + (obj.Sub_epsr-1)/2*((1 + 12/W_H)^(-1/2)+0.04*(1-W_H)^2);
                 Z_0 = 60/sqrt(eps_eff)*log(8/W_H+0.25*W_H);
@@ -70,7 +71,7 @@ classdef MicrostripDesign < handle
             Rs = sqrt(pi*obj.Frequency*constants.Mu_0*constants.CuResist);
             if (W_H <= 0.5/pi)
                 alpha_c = 8.68*Rs/(2*pi*Z_0*(obj.Height/10))*P*(1+ 1/W_H+ 1/(pi*W_H)*(log(4*pi*obj.Width/obj.copper_t) + obj.copper_t/obj.Width));
-            elseif (W_H > 0.5/pi) && (W_H <= 2)   
+            elseif ((W_H > 0.5/pi) && (W_H <= 2))   
                 alpha_c = 8.68*Rs/(2*pi*Z_0*(obj.Height/10))*P*Q;
             else
                 alpha_c = 8.68*Rs/(2*pi*Z_0*(obj.Height/10))*Q*(W_H + 2/pi*log(2*pi*exp(W_H/2+0.94)))^(-2)*(W_H + W_H/(pi*(W_H/2+0.94)));

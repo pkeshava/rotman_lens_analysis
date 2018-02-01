@@ -1,6 +1,9 @@
 function beam = additional_ports(beam)
 
     arc_l = beam.rb * beam.theta_r;
+    theta_rn_top = [];
+    theta_rn_bot = [];
+    beam.angles = [beam.theta_r 0 -beam.theta_r];
     
     for i = 1:beam.N_add
         theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
@@ -8,16 +11,23 @@ function beam = additional_ports(beam)
         y_top(i) = beam.xcyc_b(2) + beam.rb*sin(theta_rn);
         x_t_top(i) = beam.xcyc_t(1) - beam.rb_t*cos(theta_rn);
         y_t_top(i) = beam.xcyc_t(2) + beam.rb_t*sin(theta_rn);
-
+        theta_rn_top = [theta_rn_top theta_rn];
     end
+    
     for i = 1:beam.N_add
         theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
         x_bot(i) = beam.xcyc_b(1) - beam.rb*cos(theta_rn);
         y_bot(i) = beam.xcyc_b(2) - beam.rb*sin(theta_rn);
         x_t_bot(i) = beam.xcyc_t(1) - beam.rb_t*cos(theta_rn);
         y_t_bot(i) = beam.xcyc_b(2) - beam.rb_t*sin(theta_rn);
+        theta_rn_bot = [theta_rn_bot -theta_rn];
     end 
-
+    
+    beam.theta_rn_array = [beam.angles(1) theta_rn_top beam.angles(2) ...
+        theta_rn_bot beam.angles(3)];
+    
+    
+    
     x_bot = x_bot';
     y_bot = y_bot';
     x_top = fliplr(x_top)';

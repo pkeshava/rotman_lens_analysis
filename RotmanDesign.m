@@ -60,7 +60,7 @@ classdef RotmanDesign
                 obj.excited_port = Rotmanparams.excited_port;
                 obj.lambda_0 = MicrostripDesign.lambda_0;
                 obj.N = obj.d*obj.lambda_0;
-                obj.Beta_d = 2*pi*obj.d;
+                obj.Beta_d = 2*pi/obj.lambda_0*obj.d;
                 obj.lambda_g = MicrostripDesign.lambda_g;
                 obj.alpha = pi/180*Rotmanparams.alpha;
                 obj.theta_t = pi/180*Rotmanparams.theta_t;
@@ -126,6 +126,7 @@ classdef RotmanDesign
             beam.xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
             beam.yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
             beam.xbyb = [beam.xb beam.yb];
+            %beam.angles = [obj.alpha,0,-obj.alpha];
 
             % Determine center and radius of beam port contour
             ABC = [beam.xb(1) beam.yb(1);beam.xb(2)...
@@ -154,7 +155,8 @@ classdef RotmanDesign
                 beam.yb_t(2);beam.xb_t(3) beam.yb_t(3)];
             beam.xbyb_t = [beam.xb_t beam.yb_t];
             [beam.rb_t,beam.xcyc_t] = fit_circle_through_3_points(ABC2);
-           
+
+            
         end
         
 
@@ -169,7 +171,40 @@ classdef RotmanDesign
         % this is where we should do the rotation
         
         end
-        
+        function [xbt_r, ybt_r] = rotated_taper(obj, beam)
+            m = (obj.Nb+1)/2; % define middle of array i.e. index that will be rotated
+         
+            off = 0.0005/obj.F; % define y coordinate offset
+            temp_y = beam.xbyb_t(m,2);
+            r = [temp_y - off temp_y+off];
+            v = [beam.xbyb_t(m,1) beam.xbyb_t(m,1);...
+                r(1) r(2)];
+            center = [beam.xcyc_t];
+            angles = beam.theta_rn_array;
+            s = v - center;
+            s0 = [];
+            % Now each beam port needs to have 2 associated coordinates
+            % offset by the value of $_50ohm_2 microstrip divided by 2
+            % in this case 1mm/2 = 0.5mm.. in SI units and normalized
+            % = 0.0005/obj.F
+            % So the way I will do this is to take the off axis value
+            % and just rotate them by theta_rn_array            
+            for i=1:obj.Nb
+                R = [cos(angles(i)) sin(angles(i));...
+                    -sin(angles(i)) cos(angles(i))];
+                s1 = R*s;
+                s0 = [s0 s1];
+                %center = [center];
+            end
+            
+            v0 = s0 + center;
+            xbt_r = v0(1,:);
+            xbt_r = xbt_r';
+            ybt_r = v0(2,:);
+            ybt_r = ybt_r';
+            
+            
+        end
         function [xant_yant] = antenna_positions(obj, xa, w)
             
            x_ant = obj.W0/obj.F*ones(size(w,2),1) + obj.taper_a*ones(size(w,2),1); 
@@ -205,9 +240,28 @@ classdef RotmanDesign
         end
   
        
-        %function beam = microstrip50_coord(beam,obj)
-
-        %end
+%         function beam = rotation_style(beam,obj)
+%             50ohm_w = 0.001/obj.F;
+%             x_onaxis = [-1/obj.beta;-1/obj.beta;-1/obj.beta];
+%             y_onaxis = [50ohm_w/2;0;-50ohm_w/2];
+%             
+%             N_add = (obj.Nb - 3)/2;
+%             xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
+%             yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
+%             xbyb = [xb yb];
+%             ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
+%             [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
+% 
+%             % calculate length of line from center of beam contour to x position of Focal point
+%             x_l = -cos(obj.alpha) - beam.xcyc_b(1); 
+%             % determine the angle represented by radius and x_l
+%             beam.theta_r = acos(abs(x_l/beam.rb));
+            %N_vec = 1:obj.Nb; for vectorization
+            
+            %for i = 1:N_add
+              %  theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
+            %end
+%         end
         
     end
     
