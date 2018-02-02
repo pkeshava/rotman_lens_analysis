@@ -239,29 +239,6 @@ classdef RotmanDesign
             end 
         end
   
-       
-%         function beam = rotation_style(beam,obj)
-%             50ohm_w = 0.001/obj.F;
-%             x_onaxis = [-1/obj.beta;-1/obj.beta;-1/obj.beta];
-%             y_onaxis = [50ohm_w/2;0;-50ohm_w/2];
-%             
-%             N_add = (obj.Nb - 3)/2;
-%             xb = [-cos(obj.alpha);-1/obj.beta;-cos(obj.alpha)];
-%             yb = [sin(obj.alpha);0;-sin(obj.alpha)]; 
-%             xbyb = [xb yb];
-%             ABC = [xb(1) yb(1);xb(2) yb(2);xb(3) yb(3)];
-%             [rb,xcyc_b] = fit_circle_through_3_points(ABC); 
-% 
-%             % calculate length of line from center of beam contour to x position of Focal point
-%             x_l = -cos(obj.alpha) - beam.xcyc_b(1); 
-%             % determine the angle represented by radius and x_l
-%             beam.theta_r = acos(abs(x_l/beam.rb));
-            %N_vec = 1:obj.Nb; for vectorization
-            
-            %for i = 1:N_add
-              %  theta_rn = arc_l*i/((beam.N_add+1)*beam.rb);
-            %end
-%         end
         
     end
     

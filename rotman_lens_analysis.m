@@ -165,10 +165,9 @@ plotbeamcountour(Rb*1000,XCYC_b*1000,XBYB*1000);
 hold on
 grid on
 scatter(Xa*1000,Ya*1000);
-scatter(Xant*1000,Yant*1000);
+%scatter(Xant*1000,Yant*1000);
 scatter(XBYB_t(:,1)*1000,XBYB_t(:,2)*1000);
 scatter(XYBTR(:,1)*1000,XYBTR(:,2)*1000);
-%scatter(XtmYtm(:,1)*1000,XtmYtm(:,2)*1000);
 
 legend('Beam Port Phase Centres', 'Beam Port Contour', ... 
     'Array Port Phase Centres', 'Antenna Positions', 'Tapered Phase Center');
